@@ -15,7 +15,6 @@ const Toolbar = styled(_Toolbar)`
 
 const Content = styled.div`
   padding: 15px 10px;
-  background-color: #bebbb8;
   height: calc(100vh - 78px);
 `;
 
