@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken';
 
 import User from './modules/user/UserModel';
+import Product from './modules/product/ProductModel';
 const jwtSecret = 'S@C@TH0N';
 
 export async function getUser(token) {
@@ -14,6 +15,20 @@ export async function getUser(token) {
     };
   } catch (err) {
     return { user: null };
+  }
+}
+
+export async function getProduct(token) {
+  if (!token) return { product: null };
+
+  try {
+    const decodedToken = jwt.verify(token.substring(4), jwtSecret);
+    const product = await Product.findOne({ _id: decodedToken.id });
+    return {
+      product,
+    };
+  } catch (err) {
+    return { product: null };
   }
 }
 
