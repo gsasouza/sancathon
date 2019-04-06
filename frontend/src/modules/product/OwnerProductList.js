@@ -4,26 +4,26 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import _Button from '@material-ui/core/Button';
 import styled from 'styled-components';
+
+import Button from '../common/Button';
 
 const Wrapper = styled.section`
   display: flex;
   flex-direction: column;
 `;
 
-const Button = styled(_Button)`
-  && {
-    margin: 0 0 15px 0;
-    align-self: flex-end;
-    width: 190px;
-    border-radius: 50px;
-  }
-`;
-
 const ExpansionPanel = styled(_ExpansionPanel)`
   && {
-    border-radius: 10px;
+    border-radius: 30px;
+    margin: 2px 0;
+    &:last-child {
+      border-bottom-left-radius: 30px;
+      border-bottom-right-radius: 30px;
+    }
+    &:before {
+      height: 0;
+    }
   }
 `;
 
@@ -89,7 +89,7 @@ const Item = ({ name, price, quantity }) => (
 const OwnerProductList = () => {
   return (
     <Wrapper>
-      <Button variant="contained" color="primary" onClick={() => console.log('Adicionar Produto')}>
+      <Button variant="contained" color="primary" width={180} onClick={() => console.log('Adicionar Produto')}>
         Adicionar Produto
       </Button>
       {productsMock.edges.map(({ node }, index) => <Item key={index} {...node} />)}
