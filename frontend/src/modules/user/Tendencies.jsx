@@ -15,12 +15,18 @@ import ArrowUpward from '@material-ui/icons/ArrowUpward'
 import ArrowDownward from '@material-ui/icons/ArrowDownward'
 import Paper from '@material-ui/core/Paper';
 
+
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content : center;
   height : 100%;
   background-image: url(${image});
+  height: 100%;
+  padding: 0 15px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
   > div {
     display: flex;
     width : 340px;
