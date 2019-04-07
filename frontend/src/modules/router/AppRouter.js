@@ -11,6 +11,7 @@ import OwnerHome from '../home/OwnerHome';
 import OwnerProductList from '../product/OwnerProductList';
 import OwnerCreateProduct from '../product/OwnerCreateProduct';
 import UserProductList from '../product/UserProductList';
+import Tendencies from '../user/Tendencies';
 import { createQueryRenderer } from '../../relay/createQueryRender';
 
 const NotFound = () => (
@@ -19,9 +20,11 @@ const NotFound = () => (
   </div>
 );
 
-const chooseScreen = (UserComponent, OwnerComponent, isOwner, props) => {
+const chooseScreen = (UserComponent, OwnerComponent, me, props) => {
+  console.log(me)
   if (!isLoggedIn()) return <Login {...props}/>;
-  if (isOwner) return <OwnerComponent {...props} />;
+  if (!me) return <Login {...props}/>;
+  if (me.isOwner) return <OwnerComponent {...props} />;
   return <UserComponent {...props} />;
 };
 
@@ -41,22 +44,22 @@ const AppRouter = ({ query: { me }}) => (
       <Route
         path={'/'}
         exact={true}
-        render={(props) => chooseScreen(UserHome, OwnerHome,me.isOwner, props) }
+        render={(props) => chooseScreen(UserHome, OwnerHome, me, props) }
       />
       <Route
         path={'/product/list'}
         exact={true}
-        render={(props) => chooseScreen(UserProductList, OwnerProductList, me.isOwner, props)}
+        render={(props) => chooseScreen(UserProductList, OwnerProductList, me, props)}
       />
       <Route
         path={'/product/new'}
         exact={true}
-        render={(props) => chooseScreen(NotFound, OwnerCreateProduct,  me.isOwner, props)}
+        render={(props) => chooseScreen(NotFound, OwnerCreateProduct, me, props)}
       />
       <Route
         path={'/product/tendencies'}
         exact={true}
-        render={(props) => chooseScreen(NotFound, OwnerCreateProduct,  me.isOwner, props)}
+        render={(props) => chooseScreen(NotFound, Tendencies, me, props)}
       />
       <Route path="*" component={NotFound}/>
 

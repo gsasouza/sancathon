@@ -62,6 +62,7 @@ const LoginInnerForm = ({ history, values, handleSubmit, handleChange }) => {
           label="Senha"
           margin="normal"
           variant="outlined"
+          type={'password'}
           value={values['password']}
           name={'password'}
           onChange={handleChange}

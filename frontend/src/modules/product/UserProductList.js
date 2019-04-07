@@ -6,21 +6,26 @@ import CardActions from '@material-ui/core/CardActions';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import _Dialog from '@material-ui/core/Dialog';
 import _ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
 import Chip from '@material-ui/core/Chip';
 import styled from 'styled-components';
 import Avatar from '@material-ui/core/Avatar';
-
-import ScreenTitle from '../common/ScreenTitle';
-import image from '../../assets/1.jpg';
-import Layout from '../Layout';
 import {createFragmentContainer} from 'react-relay';
 import graphql from 'babel-plugin-relay/macro';
+
+import ScreenTitle from '../common/ScreenTitle';
+import Layout from '../Layout';
+import TextField from '../common/TextField';
 import {createQueryRenderer} from '../../relay/createQueryRender';
 import backgroundImage from '../../assets/fundo-telas-reduzido-semfundo.png';
 import banana from '../../assets/img1.jpg';
 import orange from '../../assets/img2.jpg';
 import apple from '../../assets/img3.jpeg';
+import useSnackbar from '../snackbar/useSnackbar';
 
 const AvatarWrapper = styled.div`
   display: flex;
@@ -58,14 +63,14 @@ const HeartIcon = styled(FavoriteIcon)`
 const UserProfile = ({ me, hasLiked, name }) => {
   return (
     <AvatarWrapper>
-      <Avatar src={`https://randomuser.me/api/portraits/med/men/${Math.round(Math.random() * 65)}.jpg`}/>
+      <Avatar src={`https://randomuser.me/api/portraits/med/men/30.jpg`}/>
       <div>
         <Typography component="h1" style={{ fontSize: 22, fontWeight: 'bold' }}>
           {name}
         </Typography>
         <div style={{ display: 'flex'}}>
           <HeartIcon hasLiked={hasLiked}/>
-          <span>{`Família ${me ? me.name.split(' ')[1] : 'Produtopper'} (${Math.round(Math.random() * 200)} apois)`}</span>
+          <span>{`Família ${me ? me.name.split(' ')[1] : 'Produtopper'} (100 apoios)`}</span>
         </div>
       </div>
     </AvatarWrapper>
@@ -88,22 +93,28 @@ const Top = styled.section`
 const Test = styled.section`
   display: flex;
   justify-content : space-between;
-  margin: 10px 15px; 
+  margin: 10px 15px;
 `;
 
 const ShoppingBasketIcon = styled(_ShoppingBasketIcon)`
   && {
-    width:50px;
-    height:50px;
     color: #3baf07;
   }
+  ${props => props.large && `
+    && {
+      width:50px;
+      height:50px;
+      color: #3baf07;
+    }`
+  }
+
 `;
 
 const Card = styled(_Card)`
   && {
     margin: 10px 0;
     border-radius: 30px;
-  }  
+  }
 `;
 
 const CardMedia = styled(_CardMedia)`
@@ -116,16 +127,22 @@ const PriceWrapper = styled(CardContent)`
 `;
 
 const HeaderWrapper = styled.div`
-  background-image: url(${backgroundImage});  
+  background-image: url(${backgroundImage});
   padding: 10px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-repeat: no-repeat;
   > div > h6 {
     color: #fff;
   }
 `;
 
+const Imgs = {
+  Banana: banana,
+  Maça: apple,
+  Laranja: orange,
+};
 
 const Tag = ({name}) => {
   return (
@@ -133,11 +150,35 @@ const Tag = ({name}) => {
   )
 };
 
+const Dialog = styled(_Dialog)`
+  && {
+    > div >  div {
+      border-radius: 20px;
+    }
+    h2, p {
+      text-align: center;
+    }
+  }
+`;
+
+const Row = styled.div`
+  display: flex;
+  padding-top: 10px;
+  justify-content: space-between;
+`;
+
+const PriceTextWrapper = styled.span`
+  font-size: 22px;
+`;
+
 const tags = ["Fazer Frito", "Em pedacos", "Adstringente"];
-const imgs = [apple, orange, banana];
 
 const Item = ({ name, price, description, createdby }) => {
   const [hasLiked, setHasLiked] = React.useState();
+  const [isOpen, handleOpen] = React.useState(false);
+  const [quantity, setQuantity] = React.useState(0);
+  const { showSnackbar } = useSnackbar();
+
 
   return (
     <Card>
@@ -146,7 +187,7 @@ const Item = ({ name, price, description, createdby }) => {
       </Top>
 
       <CardMedia
-        image={apple}
+        image={Imgs[name]}
         title={'Produto'}
       />
       <Test>
@@ -162,9 +203,37 @@ const Item = ({ name, price, description, createdby }) => {
         <IconButton aria-label="Gostei">
           <HeartIcon large />
         </IconButton>
-        <IconButton aria-label="Comprar" onClick={this.handleOpen}>
-          <ShoppingBasketIcon />
+        <IconButton aria-label="Comprar" onClick={handleOpen}>
+          <ShoppingBasketIcon large />
         </IconButton>
+        <Dialog onClose={() => handleOpen(false)} open={isOpen}>
+          <DialogTitle>{name}</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Quanto você quer ?
+            </DialogContentText>
+            <TextField
+              autoFocus
+              label="Quantidade em Kilos"
+              fullWidth
+              type={'number'}
+              value={quantity}
+              onChange={e => setQuantity(e.target.value)}
+            />
+            <Row>
+              <PriceTextWrapper>
+                {`R$ ${price * quantity},00`}
+              </PriceTextWrapper>
+              <IconButton aria-label="Comprar" onClick={() => {
+                handleOpen(false);
+                return showSnackbar({ type: 'success', message: 'Pedido enviado com sucesso!'});
+              }}>
+                <ShoppingBasketIcon />
+              </IconButton>
+            </Row>
+          </DialogContent>
+        </Dialog>
+
       </CardActions>
     </Card>
   );
@@ -175,7 +244,7 @@ const UserProductList = ({ query }) => {
   return (
     <Layout>
       <HeaderWrapper>
-        <ScreenTitle t>Comprar Organicos </ScreenTitle>
+        <ScreenTitle> Comprar Organicos </ScreenTitle>
         <Wrapper>
           {products.edges.map(({ node }, index) => <Item key={index} {...node} />)}
         </Wrapper>
@@ -194,7 +263,7 @@ const fragment = createFragmentContainer(UserProductList, {
                       name
                       price
                       quantity
-                      createdby { 
+                      createdby {
                           name
                       }
                   }
