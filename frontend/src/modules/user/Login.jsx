@@ -13,6 +13,8 @@ const Column = styled.div`
   flex-direction: column;
 `;
 
+
+
 const Wrapper = styled(Column)`
   justify-content: space-evenly;
   height: 100%;
@@ -57,6 +59,7 @@ const LoginInnerForm = () => {
           margin="normal"
           variant="outlined"
         />
+
         <ButtonWrapper>
           <Button variant={'contained'} color='secondary' width={'100%'}>
             Cadastrar
@@ -65,6 +68,8 @@ const LoginInnerForm = () => {
             Entrar
           </Button>
         </ButtonWrapper>
+         
+        
       </Column>
 
     </Wrapper>

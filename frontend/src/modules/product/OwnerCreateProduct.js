@@ -104,5 +104,31 @@ export default withFormik({
     description: '',
 
   }),
-  handleSubmit: () => console.log('create'),
+  handleSubmit: (values, formikBag) => {
+
+      const { setSubmitting, props } = formikBag;
+      const { name, email, unit } = values;
+
+      const input = {
+        name, email, unit
+      };
+
+      const onError = () => {
+        //props.showSnackbar({ message: 'Ocorreu um erro ao realizar a operação' });
+        setSubmitting(false);
+      };
+
+      const onCompleted = ({ AuthorAdd: { error }}) => {
+        if (error) return props.showSnackbar({ message: error });
+        props.showSnackbar({ message: 'Pesquisador criado com sucesso' });
+        setSubmitting(false);
+        props.history.push(`/authors`);
+      };
+
+      ProductAddMutation.commit(input, onCompleted, onError);
+    }
 })(OwnerCreateProduct);
+
+
+
+

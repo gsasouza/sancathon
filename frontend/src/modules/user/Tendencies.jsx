@@ -87,7 +87,7 @@ const TendenciesInnerForm = () => {
     </Card>
 
      <Paper>
-        <Typography variant="h5" component="h3">
+        <Typography variant="h5" component="h3" align="center">
           Proxima Semana
         </Typography>
       </Paper>
@@ -108,7 +108,6 @@ const TendenciesInnerForm = () => {
           </CardContent> 
         </div>
       </Card>
-
 
     </Wrapper>
   )
