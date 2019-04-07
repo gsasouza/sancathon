@@ -2,7 +2,7 @@ import * as React from 'react';
 import _MobileStepper from '@material-ui/core/MobileStepper';
 import styled from 'styled-components';
 import { withFormik } from 'formik';
-import _TextField from '@material-ui/core/TextField';
+import Layout from '../Layout';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 
@@ -66,32 +66,34 @@ const OwnerCreateProduct = () => {
   const getStepContent = (step) => steps[step].content;
 
   return (
-    <Wrapper>
-      <ScreenTitle> Cadastrar Produto </ScreenTitle>
-      { getStepContent(activeStep) }
+    <Layout>
+      <Wrapper>
+        <ScreenTitle> Cadastrar Produto </ScreenTitle>
+        { getStepContent(activeStep) }
 
-      <MobileStepper
-        variant="progress"
-        steps={steps.length}
-        activeStep={activeStep}
-        position="static"
-        nextButton={
-          <Button
-            size="small"
-            onClick={handleNext}
-          >
-            {activeStep === steps.length - 1 ? 'Finalizar' : 'Avançar'}
-            <KeyboardArrowRight />
-          </Button>
-        }
-        backButton={
-          <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
-            <KeyboardArrowLeft />
-            Voltar
-          </Button>
-        }
-      />
-    </Wrapper>
+        <MobileStepper
+          variant="progress"
+          steps={steps.length}
+          activeStep={activeStep}
+          position="static"
+          nextButton={
+            <Button
+              size="small"
+              onClick={handleNext}
+            >
+              {activeStep === steps.length - 1 ? 'Finalizar' : 'Avançar'}
+              <KeyboardArrowRight />
+            </Button>
+          }
+          backButton={
+            <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
+              <KeyboardArrowLeft />
+              Voltar
+            </Button>
+          }
+        />
+      </Wrapper>
+    </Layout>
   )
 
 };
