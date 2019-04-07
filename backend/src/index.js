@@ -1,4 +1,4 @@
-require('babel-polyfill');
+// require('babel-polyfill');
 import app from './app';
 import connectDatabase from './database';
 // import { graphqlPort } from './config';
