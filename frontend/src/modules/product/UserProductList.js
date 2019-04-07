@@ -18,6 +18,10 @@ import {createFragmentContainer} from 'react-relay';
 import graphql from 'babel-plugin-relay/macro';
 import {createQueryRenderer} from '../../relay/createQueryRender';
 import backgroundImage from '../../assets/fundo-telas-reduzido-semfundo.png';
+import banana from '../../assets/img1.jpg';
+import orange from '../../assets/img2.jpg';
+import apple from '../../assets/img3.jpeg';
+
 
 const AvatarWrapper = styled.div`
   display: flex;
@@ -131,6 +135,7 @@ const Tag = ({name}) => {
 };
 
 const tags = ["Fazer Frito", "Em pedacos", "Adstringente"];
+const imgs = [apple, orange, banana];
 
 const Item = ({ name, price, description, createdby }) => {
   const [hasLiked, setHasLiked] = React.useState();
@@ -142,7 +147,7 @@ const Item = ({ name, price, description, createdby }) => {
       </Top>
 
       <CardMedia
-        image={image}
+        image={apple}
         title={'Produto'}
       />
       <Test>
