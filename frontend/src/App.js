@@ -3,7 +3,6 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 import { SnackbarProvider } from './modules/snackbar';
 
-import OwnerProductList from './modules/home/UserHome';
 import AppRouter from './modules/router/AppRouter';
 
 const theme = createMuiTheme({

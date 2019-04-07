@@ -1,6 +1,4 @@
-// @flow
-
-import { GraphQLString, GraphQLNonNull } from 'graphql';
+import { GraphQLString, GraphQLNonNull, GraphQLBoolean } from 'graphql';
 import { mutationWithClientMutationId } from 'graphql-relay';
 
 import User from '../UserModel';
@@ -15,14 +13,14 @@ export default mutationWithClientMutationId({
     email: {
       type: new GraphQLNonNull(GraphQLString),
     },
-    usertype: {
-      type: new GraphQLNonNull(GraphQLString),
+    isOwner: {
+      type: new GraphQLNonNull(GraphQLBoolean),
     },
     password: {
       type: new GraphQLNonNull(GraphQLString),
     },
   },
-  mutateAndGetPayload: async ({ name, email, password, usertype }) => {
+  mutateAndGetPayload: async ({ name, email, password, isOwner }) => {
     let user = await User.findOne({ email: email.toLowerCase() });
 
     if (user) {
@@ -36,7 +34,7 @@ export default mutationWithClientMutationId({
       name,
       email,
       password,
-      usertype,
+      isOwner,
     });
     await user.save();
 

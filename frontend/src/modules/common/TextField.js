@@ -12,4 +12,7 @@ export default styled(_TextField)`
   .MuiInputLabel-outlined-22.MuiInputLabel-shrink-19 {
     display: none;
   }
+  input {
+    z-index: 0;
+  }
 `;

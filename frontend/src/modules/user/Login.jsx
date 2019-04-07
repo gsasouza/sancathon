@@ -3,10 +3,12 @@ import styled from 'styled-components';
 import { withFormik } from 'formik';
 
 import TextField from '../common/TextField';
-import Button from '../common/Button.js'
-
+import Button from '../common/Button.js';
 import backgroundImage from '../../assets/background-padrao.png';
 import logo from '../../assets/logomarca.png';
+import LoginUserMutation from './mutation/LoginUserMutation';
+import { login } from '../security/security';
+import {withSnackbar} from '../snackbar';
 
 const Column = styled.div`
   display: flex;
@@ -41,43 +43,68 @@ const ButtonWrapper = styled(Column)`
   align-items: center;
 `;
 
-const LoginInnerForm = (props) => {
-  console.log(props);
+const LoginInnerForm = ({ history, values, handleSubmit, handleChange }) => {
   return (
     <Wrapper>
       <Image src={logo} alt={'Sobera'}/>
       <Column>
         <TextField
           required
-          label="Usuario"
+          label="E-mail"
           margin="normal"
           variant="outlined"
-          onChange={() => console.log('here')}
+          value={values['email']}
+          name={'email'}
+          onChange={handleChange}
         />
         <TextField
           required
           label="Senha"
           margin="normal"
           variant="outlined"
+          value={values['password']}
+          name={'password'}
+          onChange={handleChange}
         />
 
         <ButtonWrapper>
-          <Button variant={'contained'} color='secondary' width={'100%'}>
+          <Button variant={'contained'} color='secondary' width={'100%'} onClick={() => history.push('/signup')}>
             Cadastrar
           </Button>
-          <Button variant={'contained'} color='primary' width={'100%'}>
+          <Button variant={'contained'} color='primary' width={'100%'} onClick={handleSubmit}>
             Entrar
           </Button>
         </ButtonWrapper>
-
-
       </Column>
-
     </Wrapper>
   )
 };
 
-export default withFormik({
-  mapPropsToValues: () => ({ username: '', password: '' }),
-  handleSubmit: () => console.log('here')
-})(LoginInnerForm);
+export default withSnackbar(
+  withFormik({
+    mapPropsToValues: () => ({ username: '', password: '' }),
+    handleSubmit: (values, formikBag) => {
+      const { setSubmitting, props } = formikBag;
+      const { password, email } = values;
+
+      const input = {
+        password,
+        email
+      };
+
+      const onError = () => {
+        props.showSnackbar({ type: 'error', message: 'Ocorreu um erro ao realizar a operação' });
+        setSubmitting(false);
+      };
+
+      const onCompleted = ({ LoginUser: { token, error } }) => {
+        if (error) return props.showSnackbar({ type: 'error', message: 'Email ou senha inválida' });
+        login(token);
+        setSubmitting(false);
+        props.history.push('/');
+      };
+
+      LoginUserMutation.commit(input, onCompleted, onError);
+    }
+  })(LoginInnerForm)
+);

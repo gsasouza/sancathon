@@ -10,6 +10,18 @@ import OwnerCreateProduct from '../product/OwnerCreateProduct';
 import UserProductList from '../product/UserProductList';
 import Tendencies from '../product/Tendencies';
 
+const NotFound = () => (
+  <div>
+    NOT FOUND
+  </div>
+);
+
+const chooseScreen = (UserComponent, OwnerComponent, isOwner, props) => {
+  if (!isLoggedIn()) return <Login {...props}/>;
+  if (isOwner) return <OwnerComponent {...props} />;
+  return <UserComponent {...props} />;
+}
+
 const AppRouter = () => (
   <BrowserRouter>
     <Switch>
@@ -28,6 +40,22 @@ const AppRouter = () => (
         exact={true}
         render={(props) => isLoggedIn() ? <UserDashboard {...props} />: <Login {...props}/>  }
       />
+      <Route
+        path={'/product/list'}
+        exact={true}
+        render={(props) => chooseScreen(UserProductList, OwnerProductList, false, props)}
+      />
+      <Route
+        path={'/product/new'}
+        exact={true}
+        render={(props) => chooseScreen(NotFound, OwnerCreateProduct, false, props)}
+      />
+      <Route
+        path={'/product/tendencies'}
+        exact={true}
+        render={(props) => chooseScreen(NotFound, OwnerCreateProduct, false, props)}
+      />
+      <Route path="*" component={NotFound}/>
 
     </Switch>
   </BrowserRouter>

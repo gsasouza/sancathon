@@ -1,7 +1,7 @@
 import { Environment, Network, RecordSource, Store } from 'relay-runtime';
 import { getAccessToken } from '../modules/security/security';
 
-const GRAPHQL_URL = '';
+const GRAPHQL_URL = 'https://sancathon-backend.herokuapp.com/graphql';
 
 const fetchQuery = async (operation, variables) => {
   const response = await fetch(GRAPHQL_URL, {

@@ -12,10 +12,9 @@ const Schema = new mongoose.Schema(
       required: true,
       hidden: true,
     },
-    usertype: {
-      type: String,
+    isOwner: {
+      type: Boolean,
       required: true,
-      hidden: false,
     },
     email: {
       type: String,
