@@ -2,10 +2,10 @@ import { graphql, commitMutation } from 'react-relay';
 import environment from '../../../relay/environment';
 
 const mutation = graphql`
-  mutation SignUpMutation($input: RegisterEmailInput!) {
-    RegisterEmail(input: $input){
-        token
-        error
+  mutation CreateUserMutation($input: CreateUserInput!) {
+    CreateUser(input: $input){
+      token
+      error
     }
   }
 `;

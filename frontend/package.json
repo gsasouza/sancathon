@@ -5,7 +5,7 @@
   "dependencies": {
     "@material-ui/core": "^3.9.3",
     "@material-ui/icons": "^3.0.2",
-    "babel-plugin-relay": "^2.0.0-rc.2",
+    "babel-plugin-relay": "^3.0.0",
     "formik": "^1.5.2",
     "material-ui": "^0.20.2",
     "react": "^16.8.6",
@@ -22,7 +22,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "relay": "relay-compiler --src ./src --schema ./data/schema.graphql"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -32,5 +33,9 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "graphql": "^14.2.1",
+    "relay-compiler": "^3.0.0"
+  }
 }

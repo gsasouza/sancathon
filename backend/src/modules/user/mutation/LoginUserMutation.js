@@ -5,7 +5,7 @@ import User from '../UserModel';
 import { generateToken } from '../../../auth';
 
 export default mutationWithClientMutationId({
-  name: 'LoginEmail',
+  name: 'LoginUser',
   inputFields: {
     email: {
       type: new GraphQLNonNull(GraphQLString),

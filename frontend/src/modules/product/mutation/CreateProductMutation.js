@@ -3,9 +3,9 @@ import graphql from 'babel-plugin-relay/macro';
 import environment from '../../../relay/environment';
 
 const mutation = graphql`
-  mutation ProductAddMutation($input: ProductAddInput!) {
-    ProductAdd(input: $input){
-      article {
+  mutation CreateProductMutation($input: CreateProductInput!) {
+    CreateProduct(input: $input){
+      product {
         name
         quantity
         price
