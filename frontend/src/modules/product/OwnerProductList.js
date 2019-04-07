@@ -85,7 +85,7 @@ const Item = ({ name, price, quantity }) => (
     <ExpansionPanelDetails>
       <Typography>
         Preço: R${price}
-        Quantidade: R${quantity}
+        Quantidade: {quantity}
       </Typography>
     </ExpansionPanelDetails>
   </ExpansionPanel>

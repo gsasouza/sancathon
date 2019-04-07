@@ -5,24 +5,31 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import StoreIcon from '@material-ui/icons/Store';
+import HomeIcon from '@material-ui/icons/Home';
+import { withRouter } from 'react-router-dom';
 
 const items = [
   {
-    label: 'Meus Produtos',
+    label: 'Início',
     route: '/',
+    icon: <HomeIcon />
+  },
+  {
+    label: 'Produtos',
+    route: '/product/list',
     icon: <StoreIcon />
   },
 ];
 
 
-const Item = ({ label, icon, route }) => (
-  <ListItem button key={label} onClick={() => console.log(route)}>
+const Item = ({ label, icon, route, history }) => (
+  <ListItem button key={label} onClick={() => history.push(route)}>
     <ListItemIcon>{icon}</ListItemIcon>
     <ListItemText primary={label} />
   </ListItem>
 );
 
-const Sidebar = ({ isOpen, setIsOpen }) => {
+const Sidebar = ({ isOpen, setIsOpen, history }) => {
 
   return (
     <SwipeableDrawer
@@ -37,11 +44,11 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
         onKeyDown={() => setIsOpen(false)}
       >
         <List>
-          {items.map((item, index) => <Item key={index} {...item} />)}
+          {items.map((item, index) => <Item key={index} {...item} history={history} />)}
         </List>
       </div>
     </SwipeableDrawer>
   )
 };
 
-export default Sidebar;
+export default withRouter(Sidebar);

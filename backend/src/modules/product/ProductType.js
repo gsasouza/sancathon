@@ -2,7 +2,7 @@ import { GraphQLObjectType, GraphQLString, GraphQLBoolean } from 'graphql';
 import { globalIdField } from 'graphql-relay';
 
 import UserType from '../user/UserType';
-import * as UserLoader from '../user/UserLoader';
+import User from '../user/UserModel';
 
 export default new GraphQLObjectType({
   name: 'Product',
@@ -27,7 +27,7 @@ export default new GraphQLObjectType({
     },
     createdby: {
       type: UserType,
-      resolve: product => UserLoader.load(product.createdby),
+      resolve: product => User.findOne({ _id: product.createdby }),
     },
     active: {
       type: GraphQLBoolean,

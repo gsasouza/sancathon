@@ -21,7 +21,7 @@ const FormWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-  margin: 15px;
+  padding: 0 15px;
   height: 100%;
   fieldset {
     background-color: white;
@@ -89,7 +89,7 @@ const MobileStepper = styled(_MobileStepper)`
   }
 `;
 
-const OwnerCreateProduct = ({ values, handleSubmit, handleChange }) => {
+const OwnerCreateProduct = ({ values, handleSubmit, handleChange, history, isValid }) => {
   const [activeStep, setActiveStep] = React.useState(0);
 
   const steps = [
@@ -172,12 +172,12 @@ const OwnerCreateProduct = ({ values, handleSubmit, handleChange }) => {
           activeStep={activeStep}
           position="static"
           nextButton={
-            <Fab onClick={ activeStep + 1 === steps.length ? handleSubmit : handleNext}>
+            <Fab onClick={ activeStep + 1 === steps.length ? handleSubmit : handleNext} disabled={(activeStep + 1 === steps.length) && !isValid}>
               <KeyboardArrowRight />
             </Fab>
           }
           backButton={
-            <Fab onClick={handleBack} disabled={activeStep === 0}>
+            <Fab onClick={activeStep === 0 ? history.goBack : handleBack}>
               <KeyboardArrowLeft />
             </Fab>
           }
@@ -210,7 +210,7 @@ export default withSnackbar(
           setSubmitting(false);
         };
 
-        const onCompleted = ({ AuthorAdd: { error }}) => {
+        const onCompleted = ({ CreateProduct: { error }}) => {
           if (error) return props.showSnackbar({ message: error });
           props.showSnackbar({ message: 'Pesquisador criado com sucesso' });
           setSubmitting(false);

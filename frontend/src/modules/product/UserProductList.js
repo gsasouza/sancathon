@@ -15,6 +15,10 @@ import Paper from '@material-ui/core/Paper';
 
 import image from '../../assets/1.jpg';
 import Layout from '../Layout';
+import {createFragmentContainer} from 'react-relay';
+import graphql from 'babel-plugin-relay/macro';
+import {createQueryRenderer} from '../../relay/createQueryRender';
+import backgroundImage from '../../assets/fundo-telas-reduzido-semfundo.png';
 
 const AvatarWrapper = styled.div`
   display: flex;
@@ -40,12 +44,12 @@ const HeartIcon = styled(FavoriteIcon)`
 
 `;
 
-const UserProfile = ({ me,hasLiked }) => {
+const UserProfile = ({ me, hasLiked }) => {
   return (
     <AvatarWrapper>
-      <Avatar alt={me.name} src={me.image}/>
-      <HeartIcon hasLiked={hasLiked}/>      
-      <span>{me.name}</span>
+      <Avatar src={`https://randomuser.me/api/portraits/med/men/${Math.round(Math.random() * 65)}.jpg`}/>
+      <HeartIcon hasLiked={hasLiked}/>
+      <span>{me ? me.name : '---' }</span>
     </AvatarWrapper>
   )
 };
@@ -58,7 +62,7 @@ const Wrapper = styled.section`
 
 const Top = styled.section`
   display: flex;
-  flex-direction: rown;
+  flex-direction: row;
   margin: 0 15px;
 `;
 
@@ -91,79 +95,34 @@ const PriceWrapper = styled(CardContent)`
   width: 100%;
 `;
 
-const productsMock = {
-  edges: [
-    {
-      cursor: 1,
-      node: {
-        name: 'Batata',
-        quantity: 10,
-        description: 'Lorem Ipsum is simply dummy',
-        price: '2,00',
-      }
-    },
-    {
-      cursor: 1,
-      node: {
-        name: 'Tomate',
-        quantity: 15,
-        price: '3,00',
-        description: 'Lorem Ipsum is simply dummy',
-      }
-    },
-    {
-      cursor: 1,
-      node: {
-        name: 'Cebola',
-        quantity: 11,
-        price: '1,00',
-        description: 'Lorem Ipsum is simply dummy',
-      }
-    },
-    {
-      cursor: 1,
-      node: {
-        name: 'Alface',
-        quantity: 14,
-        price: '1,40',
-        description: 'Lorem Ipsum is simply dummy',
-      }
-    },
-    {
-      cursor: 1,
-      node: {
-        name: 'Laranja',
-        quantity: 25,
-        price: '3,50',
-        description: 'Lorem Ipsum is simply dummy',
-      }
-    },
-  ]
-};
+const HeaderWrapper = styled.div`
+  background-image: url(${backgroundImage});  
+  padding: 10px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
-const meMock = {
-  name: 'Gabriel Souza',
-};
 
 const Tag = ({name}) => {
   return (
-          <Paper>
-                <Typography component="h6">
-                  {name}
-                </Typography>
-          </Paper>
-          )
+    <Paper>
+      <Typography component="h6">
+        {name}
+      </Typography>
+    </Paper>
+  )
 };
 
-const tags = ["Fazer Frito", "Em pedacos", "Adstringente"]
+const tags = ["Fazer Frito", "Em pedacos", "Adstringente"];
 
-const Item = ({ name, price, description }) => {
+const Item = ({ name, price, description, createdby }) => {
   const [hasLiked, setHasLiked] = React.useState();
 
   return (
     <Card>
       <Top>
-      <UserProfile me={meMock}/>
+      <UserProfile me={createdby} />
       <CardHeader
         action={
           <IconButton>
@@ -185,7 +144,7 @@ const Item = ({ name, price, description }) => {
 
       <CardActions disableActionSpacing>
         <PriceWrapper>
-            <Typography variant={'h4'}>
+          <Typography variant={'h4'}>
             {`R$ ${price}/kg`}
           </Typography>
         </PriceWrapper>
@@ -201,14 +160,43 @@ const Item = ({ name, price, description }) => {
   );
 };
 
-const UserProductList = () => {
+const UserProductList = ({ query }) => {
+  const { products } = query;
   return (
     <Layout>
-      <Wrapper>
-        {productsMock.edges.map(({ node }, index) => <Item key={index} {...node} me={meMock} />)}
-      </Wrapper>
+      <HeaderWrapper>
+        <Wrapper>
+          {products.edges.map(({ node }, index) => <Item key={index} {...node} />)}
+        </Wrapper>
+      </HeaderWrapper>
     </Layout>
   )
 };
 
-export default UserProductList;
+const fragment = createFragmentContainer(UserProductList, {
+  query: graphql`
+      fragment UserProductList_query on Query {
+          products {
+              edges {
+                  node {
+                      id
+                      name
+                      price
+                      quantity
+                      createdby { 
+                          name
+                      }
+                  }
+              }
+          }
+      }
+  `,
+});
+
+export default createQueryRenderer(fragment, {
+  query: graphql`
+      query UserProductListQuery {
+          ...UserProductList_query
+      }
+  `,
+});

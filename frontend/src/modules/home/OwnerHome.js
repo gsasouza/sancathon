@@ -125,7 +125,7 @@ const UserProfile = ({ me }) => {
   return (
     <AvatarWrapper>
       <Avatar alt={me.name} src={`https://randomuser.me/api/portraits/med/men/${Math.round(Math.random() * 65)}.jpg`}/>
-      <span>{`Família ${me.name.split(' ')[1]}`}</span>
+      <span>{`Família ${me.name.split(' ')[1] || 'Produtopper'}`}</span>
     </AvatarWrapper>
   )
 };
