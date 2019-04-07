@@ -10,7 +10,7 @@ import Button from '../common/Button';
 import ScreenTitle from '../common/ScreenTitle';
 import TextField from '../common/TextField';
 
-import ProductAddMutation from './mutation/ProductAddMutation';
+import CreateProductMutation from './mutation/CreateProductMutation';
 
 const FormWrapper = styled.div`
   display: flex;
@@ -127,7 +127,7 @@ export default withFormik({
         props.history.push(`/authors`);
       };
 
-      ProductAddMutation.commit(input, onCompleted, onError);
+      CreateProductMutation.commit(input, onCompleted, onError);
     }
 })(OwnerCreateProduct);
 

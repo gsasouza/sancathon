@@ -33,7 +33,6 @@ export default mutationWithClientMutationId({
       name,
       email,
       password,
-      university,
     });
     await user.save();
 

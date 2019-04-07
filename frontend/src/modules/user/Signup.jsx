@@ -6,6 +6,9 @@ import TextField from '../common/TextField';
 import Button from '../common/Button.js'
 import backgroundImage from '../../assets/background-padrao.png';
 import logo from '../../assets/logomarca.png';
+import CreateUserMutation from './mutation/CreateUserMutation';
+import { login } from '../security/security';
+import { withSnackbar } from '../snackbar';
 
 const Column = styled.div`
   display: flex;
@@ -38,7 +41,8 @@ const ButtonWrapper = styled(Column)`
   align-items: center;
 `;
 
-const LoginInnerForm = () => {
+const LoginInnerForm = ({ history, values, handleChange, handleSubmit }) => {
+  console.log(values);
   return (
     <Wrapper>
       <Image src={logo} alt={'Sobera'}/>
@@ -48,39 +52,51 @@ const LoginInnerForm = () => {
           label="Nome"
           margin="normal"
           variant="outlined"
-          onChange={() => console.log('here')}
+          name={'name'}
+          value={values['name']}
+          onChange={handleChange}
         />
         <TextField
           required
           label="E-mail"
           margin="normal"
           variant="outlined"
-          onChange={() => console.log('here')}
+          value={values['email']}
+          name={'email'}
+          onChange={handleChange}
         />
         <TextField
           required
           label="Senha"
           margin="normal"
+          value={values['password']}
           variant="outlined"
-          onChange={() => console.log('here')}
+          name={'password'}
+          onChange={handleChange}
         />
         <TextField
           required
           label="Cidade"
           margin="normal"
           variant="outlined"
+          value={values['city']}
+          name={'city'}
+          onChange={handleChange}
         />
         <TextField
           required
           label="Telefone"
           margin="normal"
           variant="outlined"
+          value={values['telephone']}
+          name={'telephone'}
+          onChange={handleChange}
         />
         <ButtonWrapper>
-          <Button variant={'contained'} color='secondary' width={'100%'}>
+          <Button variant={'contained'} color='secondary' width={'100%'} onClick={() => history.goBack()}>
             Voltar
           </Button>
-          <Button variant={'contained'} color='primary' width={'100%'}>
+          <Button variant={'contained'} color='primary' width={'100%'} onClick={handleSubmit}>
             Cadastrar
           </Button>
         </ButtonWrapper>
@@ -90,7 +106,32 @@ const LoginInnerForm = () => {
   )
 };
 
-export default withFormik({
-  mapPropsToValues: () => ({ username: '', password: '' }),
-  handleSubmit: () => console.log('here')
-})(LoginInnerForm);
+export default withSnackbar(
+  withFormik({
+    mapPropsToValues: () => ({ username: '', password: '', name: '', telephone: '', city: '' }),
+    handleSubmit: (values, formikBag) => {
+      const { setSubmitting, props } = formikBag;
+      const { password, email, name } = values;
+
+      const input = {
+        password,
+        email,
+        name
+      };
+
+      const onError = () => {
+        props.showSnackbar({ type: 'error', message: 'Ocorreu um erro ao realizar a operação' });
+        setSubmitting(false);
+      };
+
+      const onCompleted = ({ CreateUser: { token, error } }) => {
+        if (error) return props.showSnackbar({ type: 'error', message: 'Email ou senha inválida' });
+        login(token);
+        setSubmitting(false);
+        props.history.push('/');
+      };
+
+      CreateUserMutation.commit(input, onCompleted, onError);
+    }
+  })(LoginInnerForm)
+);
