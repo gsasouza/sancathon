@@ -21,6 +21,7 @@ import orange from '../../assets/img2.jpg';
 import apple from '../../assets/img3.jpeg';
 import _ShoppingBasketIcon from '../common/RemoveBasketIcon';
 
+import Button from '../common/Button';
 
 const AvatarWrapper = styled.div`
   display: flex;
@@ -178,6 +179,17 @@ const Item = ({ id, name, price, quantity, createdby, products, setProducts }) =
   );
 };
 
+const Column = styled.div`
+  display: flex;
+  margin-top: 30px;
+  flex-direction: column;
+  align-items: center;
+  font-size: 26px;
+  button {
+    margin-top: 10px;
+    align-self: center !important;
+  }
+`;
 
 const UserProductList = () => {
   const [products, setProducts] = React.useState([{
@@ -194,6 +206,15 @@ const UserProductList = () => {
         <Wrapper>
           {!products.length && <Typography variant={'h5'} style={{ color: '#fff', marginTop: 40 }}> Cesta Vazia :( </Typography>}
           {products.map((item, index) => <Item key={index} {...item} products={products} setProducts={setProducts} />)}
+          {products.length && (
+            <Column>
+              <span> Sua cesta custa: </span>
+              <span> R$ 6,00 </span>
+              <Button variant={'contained'} color={'primary'}>
+                Receber Cesta
+              </Button>
+            </Column>
+          )}
         </Wrapper>
       </HeaderWrapper>
     </Layout>

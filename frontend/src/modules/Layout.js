@@ -7,6 +7,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import AccountIcon from '@material-ui/icons/AccountCircle';
 import styled from 'styled-components';
 
+import label from '../assets/logotipo.png';
 import useSnackbar from './snackbar/useSnackbar';
 import Sidebar from './Sidebar';
 
@@ -35,9 +36,7 @@ const Layout = ({ children }) => {
           <IconButton color="inherit" aria-label="Menu" onClick={() => setIsOpen(true)}>
             <MenuIcon />
           </IconButton>
-          <Title variant="h6" color="inherit">
-            Sobera
-          </Title>
+          <img src={label} style={{ height: 35 }} />
           <IconButton color="inherit" aria-label="Perfil" onClick={() => showSnackbar({ message: 'E AI GALERA', type: 'info'})}>
             <AccountIcon />
           </IconButton>
