@@ -5,6 +5,7 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import styled from 'styled-components';
+import Layout from '../Layout';
 
 import Button from '../common/Button';
 
@@ -89,12 +90,14 @@ const Item = ({ name, price, quantity }) => (
 
 const OwnerProductList = () => {
   return (
-    <Wrapper>
-      <Button style={{ margin: '15px 0'}} variant="contained" color="primary" width={'200px'} onClick={() => console.log('Adicionar Produto')}>
-        Adicionar Produto
-      </Button>
-      {productsMock.edges.map(({ node }, index) => <Item key={index} {...node} />)}
-    </Wrapper>
+    <Layout>
+      <Wrapper>
+        <Button style={{ margin: '15px 0'}} variant="contained" color="primary" width={'200px'} onClick={() => console.log('Adicionar Produto')}>
+          Adicionar Produto
+        </Button>
+        {productsMock.edges.map(({ node }, index) => <Item key={index} {...node} />)}
+      </Wrapper>
+    </Layout>
   )
 };
 
