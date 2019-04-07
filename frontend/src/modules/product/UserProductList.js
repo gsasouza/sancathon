@@ -21,7 +21,10 @@ const Wrapper = styled.section`
 `;
 
 const Card = styled(_Card)`
-  margin: 10px 0;
+  && {
+    margin: 10px 0;
+    border-radius: 30px;
+  }  
 `;
 
 const CardMedia = styled(_CardMedia)`

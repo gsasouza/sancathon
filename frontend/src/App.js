@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
-import Layout from './modules/Layout';
 import { SnackbarProvider } from './modules/snackbar';
-import OwnerProductList from './modules/product/UserProductList';
+import OwnerProductList from './modules/home/UserHome';
 
 const theme = createMuiTheme({
   palette: {

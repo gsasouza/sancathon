@@ -90,7 +90,7 @@ export default class Snackbar extends React.Component {
   state = {
     message: '',
     action: <Action handleClose={this.handleSnackbarConfirm} />,
-    duration: 3000000,
+    duration: 4000,
     onClick: null,
     type: null,
   };
@@ -98,7 +98,7 @@ export default class Snackbar extends React.Component {
   handleSnackbar = ({
     message,
     action = <Action handleClose={this.handleSnackbarConfirm} />,
-    duration = 300000,
+    duration = 4000,
     onActionClick = null,
     type,
   }) => {
