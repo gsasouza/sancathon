@@ -56,8 +56,8 @@ const Card = styled(_Card)`
   box-shadow : dark;
   display : flex;
   border-radius : 10px;
+  justify-content : row;
   margin : 5px;
-  shadow : 20px;
   height : 75px;
   width : 80%;
   }
@@ -66,6 +66,7 @@ const Card = styled(_Card)`
 const CardHeader = styled(_Card)`
 && {
   display : flex;
+  justify-content : center;
   border-radius : 10px;
   margin : 5px;
   height : 300px;
@@ -74,26 +75,32 @@ const CardHeader = styled(_Card)`
 `;
 
 const CardMedia = styled(_CardMedia)`
+
   align-self : flex-start;
   width: 100px;
   height : 100%;
 `;
 
 const CardMediaHeader = styled(_CardMedia)`
-  align-self : center;
-  width: 100px;
+
+  width: 100%;
   height : 100%;
 `;
 
 const Button = styled(_Button)`
 && {
+
   border-radius : 10px;
   width : 5px;
+  height : 100%;
 }
 `;
 
 const CardContent = styled(_CardContent)`
 && {
+    width : 100%;
+    height : 100%;
+    display : flex;
     align-self : right;
     justify-content : center;
     font-weight : bold;
@@ -111,24 +118,12 @@ const CardContentHeader = styled(_CardContent)`
 const TendenciesInnerForm = () => {
   return (
     <HeaderWrapper>
-      <div color="0xfff">
+
+      <div color={'white'}>
         Tendencias
       </div>
 
       <CardHeader>
-
-
-      <Paper>
-        <Typography variant="h5" component="h3">
-          Essa Semana
-        </Typography>
-      </Paper>
-
-     <Card style={{ borderRadius: 30 }}>
-      <CardMedia
-        image={banana}
-        title="Live from space album cover"
-      />
       <div>
         <CardContentHeader>
           <Typography component="h5" variant="h5">
@@ -142,9 +137,6 @@ const TendenciesInnerForm = () => {
           image={grafic}
         />
       </div>
-
-
-
      </CardHeader>
 
 
