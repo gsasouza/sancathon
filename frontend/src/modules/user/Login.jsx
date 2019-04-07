@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { withFormik } from 'formik';
 import TextField from '@material-ui/core/TextField';
 import Button from '../common/Button.js'
-import image from '../../assets/1.jpg'
+import image from '../../assets/background-padrao.png'
 
 const Wrapper = styled.div`
   display: flex;
