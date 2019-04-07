@@ -10,17 +10,17 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content : center;
   height : 100%;
-  background-image: url(${image});
+  {/*background-image: url(${image});*/}
 `;
 
-const LoginInnerForm = () => {
+const SignupInnerForm = () => {
   return (
 
     <Wrapper>
       <TextField
             required
             id="outlined-required"
-            label="Usuario"
+            label="Seu Nome"
             defaultValue="Hello World"
             margin="normal"
             variant="outlined"
@@ -29,18 +29,41 @@ const LoginInnerForm = () => {
       <TextField
             required
             id="outlined-required"
-            label="Senha"
+            label="Seu email"
+            defaultValue="Hello World"
+            margin="normal"
+            variant="outlined"
+      />
+
+      <TextField
+            required
+            id="outlined-required"
+            label="Sua senha"
+            defaultValue="Hello World"
+            margin="normal"
+            variant="outlined"
+      />
+
+      <TextField
+            required
+            id="outlined-required"
+            label="Sua Cidade"
+            defaultValue="Hello World"
+            margin="normal"
+            variant="outlined"
+      />
+
+      <TextField
+            required
+            id="outlined-required"
+            label="Seu telefone"
             defaultValue="Hello World"
             margin="normal"
             variant="outlined"
       />
 
       <Button variant = "contained"> 
-        entrar 
-      </Button>
-
-      <Button variant = "contained"> 
-        cadastrar  
+        Criar Conta
       </Button>
     </Wrapper>
   )
@@ -49,4 +72,4 @@ const LoginInnerForm = () => {
 export default withFormik({
   mapPropsToValues: () => ({ username: '', password: '' }),
   handleSubmit: () => console.log('here')
-})(LoginInnerForm);
+})(SignupInnerForm);
