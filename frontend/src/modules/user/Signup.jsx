@@ -115,7 +115,7 @@ const LoginInnerForm = ({ history, values, handleChange, handleSubmit, setFieldV
         />
         <div style={{ display: 'flex', justifyContent: 'center'}}>
           <ButtonSwitch variant={'contained'} isChecked={values.isOwner} onClick={() => setFieldValue('isOwner', true)}>
-            Famílias
+            Família
           </ButtonSwitch>
           <ButtonSwitch variant={'contained'} left isChecked={!values.isOwner} onClick={() => setFieldValue('isOwner', false)}>
             Sobelover

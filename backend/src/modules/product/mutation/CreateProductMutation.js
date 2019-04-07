@@ -1,11 +1,8 @@
-// @flow
-
-import { GraphQLString, GraphQLNonNull, GraphQLID } from 'graphql';
-import { mutationWithClientMutationId } from 'grapshql-relay';
+import { GraphQLString, GraphQLNonNull } from 'graphql';
+import { mutationWithClientMutationId, fromGlobalId } from 'graphql-relay';
 
 import Product from '../ProductModel';
 import ProductType from '../ProductType';
-import { generateToken } from '../../../auth';
 
 export default mutationWithClientMutationId({
   name: 'CreateProduct',
@@ -16,14 +13,11 @@ export default mutationWithClientMutationId({
     quantity: {
       type: new GraphQLNonNull(GraphQLString),
     },
-    createdby: {
-      type: new GraphQLNonNull(GraphQLID),
-    },
     price: {
       type: new GraphQLNonNull(GraphQLString),
     },
   },
-  mutateAndGetPayload: async ({ name, quantity, price,createdby }) => {
+  mutateAndGetPayload: async ({ name, quantity, price }, { user }) => {
     let product = await Product.findOne({ name: name.toLowerCase() });
 
     if (product) {
@@ -36,8 +30,8 @@ export default mutationWithClientMutationId({
     product = new Product({
       name,
       quantity,
-      createdby,
-      prices,
+      createdby: fromGlobalId(user.id).id,
+      price,
     });
     await product.save();
 

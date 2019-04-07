@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash ef5da33170a7b7475ae4e3c6112b517a
+ * @relayHash fc4507be6a7ab3becf7bb74d62b57ddc
  */
 
 /* eslint-disable */
@@ -12,6 +12,7 @@ import type { ConcreteRequest } from 'relay-runtime';
 export type CreateProductInput = {|
   name: string,
   quantity: string,
+  createdby: string,
   price: string,
   clientMutationId?: ?string,
 |};

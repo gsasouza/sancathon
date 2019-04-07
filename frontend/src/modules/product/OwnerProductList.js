@@ -8,6 +8,9 @@ import styled from 'styled-components';
 import Layout from '../Layout';
 
 import Button from '../common/Button';
+import {createFragmentContainer} from 'react-relay';
+import graphql from 'babel-plugin-relay/macro';
+import {createQueryRenderer} from '../../relay/createQueryRender';
 
 const Wrapper = styled.section`
   display: flex;
@@ -88,18 +91,47 @@ const Item = ({ name, price, quantity }) => (
   </ExpansionPanel>
 );
 
-const OwnerProductList = ({ history }) => {
+const OwnerProductList = ({ history, query }) => {
+  const { products } = query;
   return (
     <Layout>
       <Wrapper>
+<<<<<<< HEAD
 
         <Button style={{ margin: '15px 0'}} variant="contained" color="primary" width={'200px'} onClick={() => history.push('/product/add')}>
+=======
+        <Button style={{ margin: '15px 0'}} variant="contained" color="primary" width={'200px'} onClick={() => history.push('/product/new')}>
+>>>>>>> 01aa6a2b0b7df4d0a65df19bbd1b77155ed57843
           Adicionar Produto
         </Button>
-        {productsMock.edges.map(({ node }, index) => <Item key={index} {...node} />)}
+        {products.edges.map(({ node }) => <Item key={node.id} {...node} />)}
       </Wrapper>
     </Layout>
   )
 };
 
-export default OwnerProductList;
+const fragment = createFragmentContainer(OwnerProductList, {
+  query: graphql`
+      fragment OwnerProductList_query on Query {
+          products (isOwner: true) {
+              edges {
+                  node {
+                      id
+                      name
+                      price
+                      quantity
+                  }
+              }
+          }
+      }
+  `,
+});
+
+export default createQueryRenderer(fragment, {
+  query: graphql`
+      query OwnerProductListQuery {
+          ...OwnerProductList_query
+      }
+  `,
+});
+

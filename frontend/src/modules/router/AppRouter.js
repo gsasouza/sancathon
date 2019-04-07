@@ -1,14 +1,17 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { createFragmentContainer } from 'react-relay';
+import graphql from 'babel-plugin-relay/macro';
 
 import { isLoggedIn } from '../security/security';
 import Login from '../user/Login';
 import SignUp from '../user/Signup';
-import UserDashboard from '../home/UserHome';
+import UserHome from '../home/UserHome';
+import OwnerHome from '../home/OwnerHome';
 import OwnerProductList from '../product/OwnerProductList';
 import OwnerCreateProduct from '../product/OwnerCreateProduct';
 import UserProductList from '../product/UserProductList';
-import Tendencies from '../product/Tendencies';
+import { createQueryRenderer } from '../../relay/createQueryRender';
 
 const NotFound = () => (
   <div>
@@ -20,9 +23,9 @@ const chooseScreen = (UserComponent, OwnerComponent, isOwner, props) => {
   if (!isLoggedIn()) return <Login {...props}/>;
   if (isOwner) return <OwnerComponent {...props} />;
   return <UserComponent {...props} />;
-}
+};
 
-const AppRouter = () => (
+const AppRouter = ({ query: { me }}) => (
   <BrowserRouter>
     <Switch>
       <Route
@@ -38,22 +41,22 @@ const AppRouter = () => (
       <Route
         path={'/'}
         exact={true}
-        render={(props) => isLoggedIn() ? <UserDashboard {...props} />: <Login {...props}/>  }
+        render={(props) => chooseScreen(UserHome, OwnerHome,me.isOwner, props) }
       />
       <Route
         path={'/product/list'}
         exact={true}
-        render={(props) => chooseScreen(UserProductList, OwnerProductList, false, props)}
+        render={(props) => chooseScreen(UserProductList, OwnerProductList, me.isOwner, props)}
       />
       <Route
         path={'/product/new'}
         exact={true}
-        render={(props) => chooseScreen(NotFound, OwnerCreateProduct, false, props)}
+        render={(props) => chooseScreen(NotFound, OwnerCreateProduct,  me.isOwner, props)}
       />
       <Route
         path={'/product/tendencies'}
         exact={true}
-        render={(props) => chooseScreen(NotFound, OwnerCreateProduct, false, props)}
+        render={(props) => chooseScreen(NotFound, OwnerCreateProduct,  me.isOwner, props)}
       />
       <Route path="*" component={NotFound}/>
 
@@ -61,4 +64,20 @@ const AppRouter = () => (
   </BrowserRouter>
 );
 
-export default AppRouter;
+const fragment = createFragmentContainer(AppRouter, {
+  query: graphql`
+      fragment AppRouter_query on Query {
+          me {
+              isOwner
+          }
+      }
+  `,
+});
+
+export default createQueryRenderer(fragment, {
+  query: graphql`
+      query AppRouterQuery {
+          ...AppRouter_query
+      }
+  `,
+});

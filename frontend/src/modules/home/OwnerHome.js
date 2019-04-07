@@ -3,17 +3,9 @@ import Avatar from '@material-ui/core/Avatar';
 import styled from 'styled-components';
 import _Card from '@material-ui/core/Card';
 import _CardHeader from '@material-ui/core/CardHeader';
-import _CardMedia from '@material-ui/core/CardMedia';
-import CardContent from '@material-ui/core/CardContent';
-import _CardActions from '@material-ui/core/CardActions';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import _StarIcon from '@material-ui/icons/Star';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import _Badge from '@material-ui/core/Badge';
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
-import GroupIcon from '@material-ui/icons/Group';
+import ShowChartIcon from '@material-ui/icons/ShowChart';
 import SettingsIcon from '@material-ui/icons/Settings';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import _Fab from '@material-ui/core/Fab';
@@ -25,11 +17,6 @@ import { logout } from '../security/security';
 import {createFragmentContainer} from 'react-relay';
 import graphql from 'babel-plugin-relay/macro';
 import {createQueryRenderer} from '../../relay/createQueryRender';
-
-const meMock = {
-  image: 'https://avatars2.githubusercontent.com/u/8701003?s=400&u=79bddb72021b7bc43618419c48d77a49ec036b2c&v=4',
-  name: 'Gabriel Souza'
-};
 
 const AvatarWrapper = styled.div`
   display: flex;
@@ -67,61 +54,31 @@ const ActionWrapper = styled.div`
   }
 `;
 
-
-const CardActions = styled(_CardActions)`
-  && {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 8px;
-  }
-  button:last-child {
-    margin-bottom: 10px;
-  }
-  
-
-`;
-
-const StarIcon = styled(_StarIcon)`
-  color: #ffd800;
-`;
-
 const Card = styled(_Card)`
   && {
     margin: 10px 0;
-    border-radius: 30px;
+    border-radius: 10px;
     width: 90%;
+    overflow: visible;
+    button {
+      font-size: 22px;
+      border-radius: 10px;
+      padding: 20px 0;
+    }
   }  
-`;
-
-const CardMedia = styled(_CardMedia)`
-  width: 100%;
-  height: 150px;
 `;
 
 const CardHeader = styled(_CardHeader)`
   && {
-    padding: 8px 16px;
+    padding: 16px;
     span {
       font-weight: bold;
-      font-size: 16px;
+      font-size: 24px;
     }
   }
 `;
 
-const ContentWrapper = styled(CardContent)`
-  && {
-    padding: 10px;
-    &:last-child {
-      padding-bottom: 10px;
-    }
-  }
-`;
 
-const HeartIcon = styled(FavoriteIcon)`
-  color: ${props => props.hasLiked ? '#ff3d3d' : 'rgba(0, 0, 0, 0.54)'};
-  transition: color 1s cubic-bezier(.17,.67,.83,.67);
-`;
 
 const Wrapper = styled.div`
   background-image: url(${backgroundImage});  
@@ -139,10 +96,22 @@ const Fab = styled(_Fab)`
       color: #fff;
       font-size: 40px;
     }
-  }
-  
+  }  
 `;
 
+const Badge = styled(_Badge)`
+  && {
+    width: 100%;
+    span {
+      width: 35px;
+      height: 35px;
+      border-radius: 30px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+  }
+`;
 const ActionButton = ({ icon, label, onClick }) => (
   <ActionWrapper>
     <Fab color={'primary'} onClick={onClick}>
@@ -155,8 +124,8 @@ const ActionButton = ({ icon, label, onClick }) => (
 const UserProfile = ({ me }) => {
   return (
     <AvatarWrapper>
-      <Avatar alt={me.name} src={'https://randomuser.me/api/portraits/med/men/65.jpg'}/>
-      <span>{me.name}</span>
+      <Avatar alt={me.name} src={`https://randomuser.me/api/portraits/med/men/${Math.round(Math.random() * 65)}.jpg`}/>
+      <span>{`Família ${me.name.split(' ')[1]}`}</span>
     </AvatarWrapper>
   )
 };
@@ -168,22 +137,19 @@ const IconWrapper = styled.div`
   flex-wrap: wrap;
 `;
 
-const UserHome = ({ history, query }) => {
-  const familyMock = {
-    image: 'https://images.unsplash.com/photo-1509506489701-dfe23b067808?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1068&q=80',
-  };
+const OwnerHome = ({ history, query }) => {
 
   const { me } = query;
 
   const actions = [
     {
-      label: 'Compras',
+      label: 'Produtos',
       icon: <ShoppingBasketIcon />,
       onClick: () => history.push('/product/list')
     },
     {
-      label: 'Famílias',
-      icon: <GroupIcon/>
+      label: 'Tendências',
+      icon: <ShowChartIcon/>
     },
     {
       label: 'Configurações',
@@ -199,41 +165,19 @@ const UserHome = ({ history, query }) => {
     },
   ];
 
-  const [hasLiked, setHasLiked] = React.useState();
-
   return (
     <Layout>
       <Wrapper>
         <UserProfile me={me}/>
         <Card>
           <CardHeader
-            avatar={<StarIcon/>}
-            action={
-              <IconButton>
-                <MoreVertIcon />
-              </IconButton>
-            }
-            title={'Família do Mês'}
+            title={'Olá João, tudo bem?'}
           />
-          <CardMedia
-            image={familyMock.image}
-            title={'Família'}
-          />
-          <ContentWrapper>
-            <Typography component="p">
-              This impressive paella is a perfect party dish and a fun meal to cook together with your
-              guests. Add 1 cup of frozen peas along with the mussels, if you like.
-            </Typography>
-          </ContentWrapper>
-          <CardActions disableActionSpacing>
-            <IconButton aria-label="Gostei" onClick={() => setHasLiked(!hasLiked)} >
-              <HeartIcon hasLiked={hasLiked}/>
-            </IconButton>
-            <Button variant={'contained'} color={'primary'}>
-              Conhecer
-              <PlayArrowIcon/>
+          <Badge badgeContent={Math.round(Math.random() * 10)} color={'secondary'}>
+            <Button variant={'contained'} color={'primary'} width={'100%'}>
+              Meus Pedidos
             </Button>
-          </CardActions>
+          </Badge>
         </Card>
         <IconWrapper>
           {actions.map((action, index) => <ActionButton key={index} {...action}/>)}
@@ -243,9 +187,9 @@ const UserHome = ({ history, query }) => {
   );
 };
 
-const fragment = createFragmentContainer(UserHome, {
+const fragment = createFragmentContainer(OwnerHome, {
   query: graphql`
-      fragment UserHome_query on Query {
+      fragment OwnerHome_query on Query {
           me {
               name
           }
@@ -255,8 +199,8 @@ const fragment = createFragmentContainer(UserHome, {
 
 export default createQueryRenderer(fragment, {
   query: graphql`
-      query UserHomeQuery {
-          ...UserHome_query
+      query OwnerHomeQuery {
+          ...OwnerHome_query
       }
   `,
 });

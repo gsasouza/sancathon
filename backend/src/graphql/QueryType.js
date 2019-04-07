@@ -1,4 +1,4 @@
-import { GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLID } from 'graphql';
+import { GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLID, GraphQLBoolean } from 'graphql';
 import { connectionArgs, fromGlobalId } from 'graphql-relay';
 
 import UserType from '../modules/user/UserType';
@@ -8,7 +8,6 @@ import * as UserLoader from '../modules/user/UserLoader';
 import ProductType from '../modules/product/ProductType';
 import ProductConnection from '../modules/product/ProductConnection';
 import * as ProductLoader from '../modules/product/ProductLoader';
-
 
 export default new GraphQLObjectType({
   name: 'Query',
@@ -39,6 +38,9 @@ export default new GraphQLObjectType({
         search: {
           type: GraphQLString,
         },
+        isOwner: {
+          type: GraphQLBoolean,
+        }
       },
       resolve: (obj, args, context) => ProductLoader.loadProducts(context, args),
     },

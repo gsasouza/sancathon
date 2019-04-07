@@ -2,7 +2,7 @@ import * as React from 'react';
 import { QueryRenderer } from 'react-relay';
 import environment from './environment';
 
-import Loading from '../components/common/Loading';
+import Loading from '@material-ui/core/CircularProgress';
 
 export function createQueryRenderer(
   FragmentComponent,

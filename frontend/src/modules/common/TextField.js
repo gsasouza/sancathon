@@ -5,13 +5,12 @@ export default styled(_TextField)`
   fieldset {
     border-radius: 30px; 
     background-color: #bebbb8;
+    border-width: 0 !important;
   }
-  .MuiOutlinedInput-root-30.MuiOutlinedInput-focused-31 .MuiOutlinedInput-notchedOutline-37 {
-    border-width: 0;
-  }
-  .MuiInputLabel-outlined-22.MuiInputLabel-shrink-19 {
+  label[data-shrink=true] { 
     display: none;
   }
+  
   input {
     z-index: 0;
   }
