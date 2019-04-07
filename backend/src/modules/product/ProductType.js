@@ -22,6 +22,10 @@ export default new GraphQLObjectType({
       type: GraphQLString,
       resolve: product => product.price,
     },
+    createdby: {
+      type: User,
+      resolve: product => product.createdby,
+    },
     active: {
       type: GraphQLBoolean,
       resolve: product => product.active,

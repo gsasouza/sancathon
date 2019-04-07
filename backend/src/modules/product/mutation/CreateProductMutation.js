@@ -13,11 +13,14 @@ export default mutationWithClientMutationId({
     quantity: {
       type: new GraphQLNonNull(GraphQLString),
     },
+    createdby: {
+      type: new GraphQLNonNull(GraphQLID),
+    },
     price: {
       type: new GraphQLNonNull(GraphQLString),
     },
   },
-  mutateAndGetPayload: async ({ name, quantity, price }) => {
+  mutateAndGetPayload: async ({ name, quantity, price, createdby }) => {
     let product = await Product.findOne({ name: name.toLowerCase() });
 
     if (product) {
@@ -30,6 +33,7 @@ export default mutationWithClientMutationId({
     product = new Product({
       name,
       quantity,
+      createdby,
       price,
     });
     await product.save();
