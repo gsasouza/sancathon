@@ -6970,6 +6970,11 @@ nth-check@^1.0.2, nth-check@~1.0.1:
   dependencies:
     boolbase "~1.0.0"
 
+nullthrows@^1.1.0:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/nullthrows/-/nullthrows-1.1.1.tgz#7818258843856ae971eae4208ad7d7eb19a431b1"
+  integrity sha512-2vPPEi+Z7WqML2jZYddDIfy5Dqb0r2fze2zTxNNknZaFpVHU3mFB3R+DWeJWGVx0ecvttSGlJTI+WG+8Z4cDWw==
+
 num2fraction@^1.2.2:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/num2fraction/-/num2fraction-1.2.2.tgz#6f682b6a027a4e9ddfa4564cd2589d1d4e669ede"
@@ -8216,7 +8221,7 @@ prompts@^0.1.9:
     kleur "^2.0.1"
     sisteransi "^0.1.1"
 
-prop-types@^15.5.4, prop-types@^15.5.6, prop-types@^15.5.7, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2:
+prop-types@^15.5.4, prop-types@^15.5.6, prop-types@^15.5.7, prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2:
   version "15.7.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
   integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
@@ -8478,6 +8483,17 @@ react-lifecycles-compat@^3.0.2, react-lifecycles-compat@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
+
+react-relay@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/react-relay/-/react-relay-3.0.0.tgz#b3fe7931f812a6700e2420a853adb74156e162b9"
+  integrity sha512-HZQ1CXhF2EBt6f5XG2nWoT5FZIn9zdoHeo8+u5rqQ3fCRBr4qmvLihfehWlCcYCcx57pnAiqsjUdJmwxGUmbsg==
+  dependencies:
+    "@babel/runtime" "^7.0.0"
+    fbjs "^1.0.0"
+    nullthrows "^1.1.0"
+    prop-types "^15.5.8"
+    relay-runtime "3.0.0"
 
 react-router-dom@^5.0.0:
   version "5.0.0"
@@ -8812,7 +8828,7 @@ relateurl@0.2.x:
   resolved "https://registry.yarnpkg.com/relateurl/-/relateurl-0.2.7.tgz#54dbf377e51440aca90a4cd274600d3ff2d888a9"
   integrity sha1-VNvzd+UUQKypCkzSdGANP/LYiKk=
 
-relay-runtime@^3.0.0:
+relay-runtime@3.0.0, relay-runtime@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/relay-runtime/-/relay-runtime-3.0.0.tgz#a024e1d80c9a71e76495f3a15e8f3f40113385e2"
   integrity sha512-P9pDoAaqku9m5MTMjampwo+0vsNd2Nv8x78GpWuxPxvqJusqz8MBpu0RVBViIpLzCn77Pegw2ihtXgQSBdvs0w==
