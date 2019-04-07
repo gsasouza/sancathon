@@ -14,14 +14,10 @@ import UserProductList from '../product/UserProductList';
 import Tendencies from '../user/Tendencies';
 import { createQueryRenderer } from '../../relay/createQueryRender';
 
-const NotFound = () => (
-  <div>
-    NOT FOUND
-  </div>
-);
+import NotFound from '../common/NotFound';
+import ProductBasket from '../product/ProductBasket';
 
 const chooseScreen = (UserComponent, OwnerComponent, me, props) => {
-  console.log(me)
   if (!isLoggedIn()) return <Login {...props}/>;
   if (!me) return <Login {...props}/>;
   if (me.isOwner) return <OwnerComponent {...props} />;
@@ -29,7 +25,7 @@ const chooseScreen = (UserComponent, OwnerComponent, me, props) => {
 };
 
 const AppRouter = ({ query: { me }}) => (
-  <BrowserRouter>
+  <BrowserRouter key={me.isOwner}>
     <Switch>
       <Route
         path={'/login'}
@@ -55,6 +51,11 @@ const AppRouter = ({ query: { me }}) => (
         path={'/product/new'}
         exact={true}
         render={(props) => chooseScreen(NotFound, OwnerCreateProduct, me, props)}
+      />
+      <Route
+        path={'/product/basket'}
+        exact={true}
+        render={(props) => chooseScreen(ProductBasket, NotFound, me, props)}
       />
       <Route
         path={'/product/tendencies'}
