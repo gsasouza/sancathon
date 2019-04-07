@@ -125,7 +125,6 @@ const HeaderWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   background-repeat: no-repeat;
-  background-size: contain;
   > div > h6 {
     color: #fff;
   }
