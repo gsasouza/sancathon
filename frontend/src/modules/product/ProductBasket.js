@@ -191,7 +191,7 @@ const Column = styled.div`
   }
 `;
 
-const UserProductList = () => {
+const ProductBasket = () => {
   const [products, setProducts] = React.useState([{
     createdby: {name: "Produtor Souza"},
     id: "UHJvZHVjdDo1Y2FhMDJhNDE0M2E4MTAwM2EzOTE3ZmU=",
@@ -221,9 +221,9 @@ const UserProductList = () => {
   )
 };
 
-const fragment = createFragmentContainer(UserProductList, {
+const fragment = createFragmentContainer(ProductBasket, {
   query: graphql`
-      fragment UserProductList_query on Query {
+      fragment ProductBasket_query on Query {
           products {
               edges {
                   node {
@@ -243,8 +243,8 @@ const fragment = createFragmentContainer(UserProductList, {
 
 export default createQueryRenderer(fragment, {
   query: graphql`
-      query UserProductListQuery {
-          ...UserProductList_query
+      query ProductBasketQuery {
+          ...ProductBasket_query
       }
   `,
 });
