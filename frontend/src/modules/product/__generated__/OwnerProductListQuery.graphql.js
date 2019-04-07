@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 58159c61df53a42c515614a83d049402
+ * @relayHash ea636ebdb02e9cd8fde806ac331a37ea
  */
 
 /* eslint-disable */
@@ -27,7 +27,7 @@ query OwnerProductListQuery {
 }
 
 fragment OwnerProductList_query on Query {
-  products {
+  products(isOwner: true) {
     edges {
       node {
         id
@@ -65,8 +65,15 @@ const node/*: ConcreteRequest*/ = {
         "kind": "LinkedField",
         "alias": null,
         "name": "products",
-        "storageKey": null,
-        "args": null,
+        "storageKey": "products(isOwner:true)",
+        "args": [
+          {
+            "kind": "Literal",
+            "name": "isOwner",
+            "value": true,
+            "type": "Boolean"
+          }
+        ],
         "concreteType": "ProductConnection",
         "plural": false,
         "selections": [
@@ -128,7 +135,7 @@ const node/*: ConcreteRequest*/ = {
     "operationKind": "query",
     "name": "OwnerProductListQuery",
     "id": null,
-    "text": "query OwnerProductListQuery {\n  ...OwnerProductList_query\n}\n\nfragment OwnerProductList_query on Query {\n  products {\n    edges {\n      node {\n        id\n        name\n        price\n        quantity\n      }\n    }\n  }\n}\n",
+    "text": "query OwnerProductListQuery {\n  ...OwnerProductList_query\n}\n\nfragment OwnerProductList_query on Query {\n  products(isOwner: true) {\n    edges {\n      node {\n        id\n        name\n        price\n        quantity\n      }\n    }\n  }\n}\n",
     "metadata": {}
   }
 };

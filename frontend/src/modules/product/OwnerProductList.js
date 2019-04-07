@@ -96,7 +96,7 @@ const OwnerProductList = ({ history, query }) => {
   return (
     <Layout>
       <Wrapper>
-        <Button style={{ margin: '15px 0'}} variant="contained" color="primary" width={'200px'} onClick={() => history.push('/product/add')}>
+        <Button style={{ margin: '15px 0'}} variant="contained" color="primary" width={'200px'} onClick={() => history.push('/product/new')}>
           Adicionar Produto
         </Button>
         {products.edges.map(({ node }) => <Item key={node.id} {...node} />)}
@@ -108,7 +108,7 @@ const OwnerProductList = ({ history, query }) => {
 const fragment = createFragmentContainer(OwnerProductList, {
   query: graphql`
       fragment OwnerProductList_query on Query {
-          products {
+          products (isOwner: true) {
               edges {
                   node {
                       id

@@ -53,19 +53,6 @@ export const loadProducts = async (context, args) => {
   });
 };
 
-export const loadProductsOwner = async (context, args) => {
-  const where = args.search ? {createdby : context.user.id , name: { $regex: new RegExp(`^${args.search}`, 'ig') } } : {};
-  const users = ProductModel.find(where, { _id: 1 }).sort({ createdAt: -1 });
-
-  return connectionFromMongoCursor({
-    cursor: products,
-    context,
-    args,
-    loader: load,
-  });
-};
-
-
 
 
 

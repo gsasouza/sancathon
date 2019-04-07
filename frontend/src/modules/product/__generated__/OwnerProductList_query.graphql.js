@@ -37,8 +37,15 @@ const node/*: ReaderFragment*/ = {
       "kind": "LinkedField",
       "alias": null,
       "name": "products",
-      "storageKey": null,
-      "args": null,
+      "storageKey": "products(isOwner:true)",
+      "args": [
+        {
+          "kind": "Literal",
+          "name": "isOwner",
+          "value": true,
+          "type": "Boolean"
+        }
+      ],
       "concreteType": "ProductConnection",
       "plural": false,
       "selections": [
@@ -97,5 +104,5 @@ const node/*: ReaderFragment*/ = {
   ]
 };
 // prettier-ignore
-(node/*: any*/).hash = '04653d9444f3a8af51c14d54cda6473c';
+(node/*: any*/).hash = '13864ef191e2ed096a18ea15886f4af3';
 module.exports = node;
