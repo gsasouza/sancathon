@@ -73,8 +73,6 @@ const CardActions = styled(_CardActions)`
   button:last-child {
     margin-bottom: 10px;
   }
-  
-
 `;
 
 const StarIcon = styled(_StarIcon)`
@@ -178,7 +176,8 @@ const UserHome = ({ history, query }) => {
     },
     {
       label: 'Famílias',
-      icon: <GroupIcon/>
+      icon: <GroupIcon/>,
+      onClick: () => history.push('/families'),
     },
     {
       label: 'Configurações',

@@ -21,6 +21,7 @@ import orange from '../../assets/img2.jpg';
 import apple from '../../assets/img3.jpeg';
 import _ShoppingBasketIcon from '../common/RemoveBasketIcon';
 
+import Button from '../common/Button';
 
 const AvatarWrapper = styled.div`
   display: flex;
@@ -178,8 +179,19 @@ const Item = ({ id, name, price, quantity, createdby, products, setProducts }) =
   );
 };
 
+const Column = styled.div`
+  display: flex;
+  margin-top: 30px;
+  flex-direction: column;
+  align-items: center;
+  font-size: 26px;
+  button {
+    margin-top: 10px;
+    align-self: center !important;
+  }
+`;
 
-const UserProductList = () => {
+const ProductBasket = () => {
   const [products, setProducts] = React.useState([{
     createdby: {name: "Produtor Souza"},
     id: "UHJvZHVjdDo1Y2FhMDJhNDE0M2E4MTAwM2EzOTE3ZmU=",
@@ -194,15 +206,24 @@ const UserProductList = () => {
         <Wrapper>
           {!products.length && <Typography variant={'h5'} style={{ color: '#fff', marginTop: 40 }}> Cesta Vazia :( </Typography>}
           {products.map((item, index) => <Item key={index} {...item} products={products} setProducts={setProducts} />)}
+          {products.length && (
+            <Column>
+              <span> Sua cesta custa: </span>
+              <span> R$ 6,00 </span>
+              <Button variant={'contained'} color={'primary'}>
+                Receber Cesta
+              </Button>
+            </Column>
+          )}
         </Wrapper>
       </HeaderWrapper>
     </Layout>
   )
 };
 
-const fragment = createFragmentContainer(UserProductList, {
+const fragment = createFragmentContainer(ProductBasket, {
   query: graphql`
-      fragment UserProductList_query on Query {
+      fragment ProductBasket_query on Query {
           products {
               edges {
                   node {
@@ -222,8 +243,8 @@ const fragment = createFragmentContainer(UserProductList, {
 
 export default createQueryRenderer(fragment, {
   query: graphql`
-      query UserProductListQuery {
-          ...UserProductList_query
+      query ProductBasketQuery {
+          ...ProductBasket_query
       }
   `,
 });

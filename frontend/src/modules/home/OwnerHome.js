@@ -172,7 +172,7 @@ const OwnerHome = ({ history, query }) => {
         <UserProfile me={me}/>
         <Card>
           <CardHeader
-            title={'Olá João, tudo bem?'}
+            title={`Olá ${me.name}, tudo bem?`}
           />
           <Badge badgeContent={Math.round(Math.random() * 10)} color={'secondary'}>
             <Button variant={'contained'} color={'primary'} width={'100%'}>

@@ -1,16 +1,19 @@
 import * as  React from 'react';
-import _ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import styled from 'styled-components';
-import Layout from '../Layout';
+import _Card from '@material-ui/core/Card';
+import _CardMedia from '@material-ui/core/CardMedia';
 
+import Layout from '../Layout';
 import Button from '../common/Button';
 import {createFragmentContainer} from 'react-relay';
 import graphql from 'babel-plugin-relay/macro';
 import {createQueryRenderer} from '../../relay/createQueryRender';
+import banana from '../../assets/img1.jpg';
+import apple from '../../assets/img3.jpeg';
+import orange from '../../assets/img2.jpg';
+import CardContent from '@material-ui/core/es/CardContent/CardContent';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 
 const Wrapper = styled.section`
   display: flex;
@@ -18,34 +21,63 @@ const Wrapper = styled.section`
   margin: 48px 15px;
 `;
 
-const ExpansionPanel = styled(_ExpansionPanel)`
+const Card = styled(_Card)`
   && {
+    margin: 10px 0;
     border-radius: 30px;
-    margin: 2px 0;
-    &:last-child {
-      border-bottom-left-radius: 30px;
-      border-bottom-right-radius: 30px;
-    }
-    &:before {
-      height: 0;
-    }
+  }  
+`;
+
+const CardMedia = styled(_CardMedia)`
+  width: 100%;
+  height: 150px;
+`;
+
+const Imgs = {
+  Banana: banana,
+  Maça: apple,
+  Laranja: orange,
+};
+
+const HeartIcon = styled(FavoriteIcon)`
+  color: red;
+  transition: color 1s cubic-bezier(.17,.67,.83,.67);
+  && {
+    margin-right: 5px;
+    width: 30px;
+    height: 30px;
   }
 `;
 
-const Item = ({ name, price, quantity }) => (
-  <ExpansionPanel>
-    <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-      <Typography>{name}</Typography>
-    </ExpansionPanelSummary>
-    <ExpansionPanelDetails>
-      <Typography>
-        Preço: R${price}
-        Quantidade: {quantity}
-      </Typography>
-    </ExpansionPanelDetails>
-  </ExpansionPanel>
-);
+const Item = ({ name, price }) => {
 
+  return (
+    <Card>
+      <CardMedia
+        image={Imgs[name]}
+        title={'Produto'}
+      />
+      <CardContent>
+        <div>
+          <Typography component="h1" style={{ fontSize: 22, fontWeight: 'bold' }}>
+            {name}
+          </Typography>
+          <div style={{ display: 'flex', alignItems: 'center'}}>
+            <HeartIcon />
+            <span>{`Esse item tem 100 apoios`}</span>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 5}}>
+            <span style={{ fontSize: 26, fontWeight: 'bold'}}> R$ {price},00/kg</span>
+            <Button variant="contained" color="primary">
+              Editar
+            </Button>
+          </div>
+
+        </div>
+      </CardContent>
+    </Card>
+  );
+};
 const OwnerProductList = ({ history, query }) => {
   const { products } = query;
   return (
