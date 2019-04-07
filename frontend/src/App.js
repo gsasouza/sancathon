@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
+
 import { SnackbarProvider } from './modules/snackbar';
 
 import AppRouter from './modules/router/AppRouter';

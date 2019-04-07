@@ -139,9 +139,9 @@ const Fab = styled(_Fab)`
   
 `;
 
-const ActionButton = ({ icon, label }) => (
+const ActionButton = ({ icon, label, onClick }) => (
   <ActionWrapper>
-    <Fab color={'primary'}>
+    <Fab color={'primary'} onClick={onClick}>
       {icon}
     </Fab>
     <span>{label}</span>
@@ -164,7 +164,7 @@ const IconWrapper = styled.div`
   flex-wrap: wrap;
 `;
 
-const UserHome = () => {
+const UserHome = ({ history }) => {
   const familyMock = {
     image: 'https://images.unsplash.com/photo-1509506489701-dfe23b067808?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1068&q=80',
   };
@@ -172,7 +172,8 @@ const UserHome = () => {
   const actions = [
     {
       label: 'Compras',
-      icon: <ShoppingBasketIcon />
+      icon: <ShoppingBasketIcon />,
+      onClick: () => history.push('/product/list')
     },
     {
       label: 'Famílias',
