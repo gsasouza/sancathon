@@ -82,7 +82,7 @@ const CardHeader = styled(_CardHeader)`
 
 const Wrapper = styled.div`
   background-image: url(${backgroundImage});  
-  padding: 10px 0;
+  margin: 48px 0;
   display: flex;
   flex-direction: column;
   align-items: center;

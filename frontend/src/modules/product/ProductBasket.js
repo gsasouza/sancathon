@@ -6,27 +6,21 @@ import CardActions from '@material-ui/core/CardActions';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import _Dialog from '@material-ui/core/Dialog';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import Chip from '@material-ui/core/Chip';
 import styled from 'styled-components';
 import Avatar from '@material-ui/core/Avatar';
 import {createFragmentContainer} from 'react-relay';
 import graphql from 'babel-plugin-relay/macro';
 
-import Button from '../common/Button';
 import ScreenTitle from '../common/ScreenTitle';
 import Layout from '../Layout';
-import TextField from '../common/TextField';
 import {createQueryRenderer} from '../../relay/createQueryRender';
 import backgroundImage from '../../assets/fundo-telas-reduzido-semfundo.png';
 import banana from '../../assets/img1.jpg';
 import orange from '../../assets/img2.jpg';
 import apple from '../../assets/img3.jpeg';
-import useSnackbar from '../snackbar/useSnackbar';
-import AddBasketIcon from '../common/AddBasketIcon';
+import _ShoppingBasketIcon from '../common/RemoveBasketIcon';
+
 
 const AvatarWrapper = styled.div`
   display: flex;
@@ -53,9 +47,11 @@ const AvatarWrapper = styled.div`
 const HeartIcon = styled(FavoriteIcon)`
   color: ${props => props.hasLiked ? '#ffd800' : 'rgba(0, 0, 0, 0.54)'};
   transition: color 1s cubic-bezier(.17,.67,.83,.67);
-  && {
-    width: 30px;
-    height: 30px;
+  ${props => props.large && `
+    && {
+      width:50px;
+      height:50px;
+    }`
   }
 `;
 
@@ -78,7 +74,8 @@ const UserProfile = ({ me, hasLiked, name }) => {
 
 const Wrapper = styled.section`
   display: flex;
-  flex-direction: column;  
+  flex-direction: column;
+  height: 100%;
 `;
 
 const Top = styled.section`
@@ -94,10 +91,16 @@ const Test = styled.section`
   margin: 10px 15px; 
 `;
 
-const ShoppingBasketIcon = styled(AddBasketIcon)`
-  svg {
-    width:50px;
-    height:50px;
+const ShoppingBasketIcon = styled(_ShoppingBasketIcon)`
+  && {
+    fill: red;
+  }
+  ${props => props.large && `
+    && {
+      width:50px;
+      height:50px;
+      fill: red;
+    }`
   }
 
 `;
@@ -125,7 +128,7 @@ const HeaderWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   background-repeat: no-repeat;
-  background-size: contain;
+  height: 100%;
   > div > h6 {
     color: #fff;
   }
@@ -143,91 +146,9 @@ const Tag = ({name}) => {
   )
 };
 
-const Dialog = styled(_Dialog)`
-  && {
-    > div >  div {
-      border-radius: 20px;
-    }
-    h2, p {
-      text-align: center;
-    }
-  }
-`;
-
-const Row = styled.div`
-  display: flex;
-  padding-top: 10px;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const PriceTextWrapper = styled.span`
-  font-size: 22px;
-`;
-
-const FinishSaleWrapper = styled.div`
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  button {
-    align-self: auto !important;
-    margin: 5px 0;
-  }
-`;
-
-
 const tags = ["Fazer Frito", "Em pedacos", "Adstringente"];
 
-const Item = ({ name, price, description, createdby, history }) => {
-  const [sale, setSale] = React.useState(false);
-  const [isOpen, handleOpen] = React.useState(false);
-  const [quantity, setQuantity] = React.useState(1);
-
-  const getSaleComponent = () => sale ? (
-    <>
-      <DialogTitle> Deseja mais alguma coisa? </DialogTitle>
-      <FinishSaleWrapper>
-        <Button color={'primary'} variant={'contained'} onClick={() => {
-          handleOpen(false);
-          setSale(false);
-          setQuantity(1);
-        }}>
-          Continuar Comprando
-        </Button>
-        <Button color={'secondary'} variant={'contained'} style={{ width: 200 }} onClick={() => history.push('/product/basket')}>
-          Finalizar Compra
-        </Button>
-      </FinishSaleWrapper>
-    </>
-  ) : (
-    <>
-      <DialogTitle>{name}</DialogTitle>
-      <DialogContent>
-        <DialogContentText>
-          Quanto você quer ?
-        </DialogContentText>
-        <TextField
-          autoFocus
-          label="Quantidade em Kilos"
-          fullWidth
-          type={'number'}
-          value={quantity}
-          onChange={e => setQuantity(e.target.value)}
-        />
-        <Row>
-          <PriceTextWrapper>
-            {`R$ ${price * quantity},00`}
-          </PriceTextWrapper>
-          <IconButton aria-label="Comprar" onClick={() => setSale(true)}>
-            <AddBasketIcon />
-          </IconButton>
-        </Row>
-      </DialogContent>
-    </>
-  );
-
-
+const Item = ({ id, name, price, quantity, createdby, products, setProducts }) => {
   return (
     <Card>
       <Top>
@@ -239,38 +160,40 @@ const Item = ({ name, price, description, createdby, history }) => {
         title={'Produto'}
       />
       <Test>
-       {tags.map(tag => <Tag name={tag}/>)}
+        {tags.map(tag => <Tag name={tag}/>)}
       </Test>
 
       <CardActions disableActionSpacing>
         <PriceWrapper>
           <Typography variant={'h4'}>
-            {`R$ ${price}/kg`}
+            {`R$ ${price * quantity},00`}
           </Typography>
         </PriceWrapper>
-        <IconButton aria-label="Gostei">
-          <HeartIcon />
+        <IconButton aria-label="Remover" onClick={() => setProducts(products.filter(item => item.id !== id ))}>
+          <ShoppingBasketIcon large />
         </IconButton>
-        <IconButton aria-label="Comprar" onClick={handleOpen}>
-          <ShoppingBasketIcon />
-        </IconButton>
-        <Dialog onClose={() => handleOpen(false)} open={isOpen}>
-          {getSaleComponent()}
-        </Dialog>
 
       </CardActions>
     </Card>
   );
 };
 
-const UserProductList = ({ query, history }) => {
-  const { products } = query;
+
+const UserProductList = () => {
+  const [products, setProducts] = React.useState([{
+    createdby: {name: "Produtor Souza"},
+    id: "UHJvZHVjdDo1Y2FhMDJhNDE0M2E4MTAwM2EzOTE3ZmU=",
+    name: "Banana",
+    price: "3",
+    quantity: "2",
+  }]);
   return (
     <Layout>
       <HeaderWrapper>
-        <ScreenTitle> Comprar Orgânicos </ScreenTitle>
+        <ScreenTitle> Minha Cesta de Compras </ScreenTitle>
         <Wrapper>
-          {products.edges.map(({ node }, index) => <Item key={index} {...node} history={history}/>)}
+          {!products.length && <Typography variant={'h5'} style={{ color: '#fff', marginTop: 40 }}> Cesta Vazia :( </Typography>}
+          {products.map((item, index) => <Item key={index} {...item} products={products} setProducts={setProducts} />)}
         </Wrapper>
       </HeaderWrapper>
     </Layout>
@@ -287,7 +210,7 @@ const fragment = createFragmentContainer(UserProductList, {
                       name
                       price
                       quantity
-                      createdby { 
+                      createdby {
                           name
                       }
                   }

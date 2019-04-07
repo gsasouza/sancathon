@@ -6,6 +6,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import StoreIcon from '@material-ui/icons/Store';
 import HomeIcon from '@material-ui/icons/Home';
+import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import { withRouter } from 'react-router-dom';
 
 const items = [
@@ -18,6 +19,11 @@ const items = [
     label: 'Produtos',
     route: '/product/list',
     icon: <StoreIcon />
+  },
+  {
+    label: 'Cesta',
+    route: '/product/basket',
+    icon: <ShoppingBasketIcon />
   },
 ];
 

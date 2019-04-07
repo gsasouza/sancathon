@@ -16,7 +16,13 @@ const Toolbar = styled(_Toolbar)`
 `;
 
 const Content = styled.div`
-  height: calc(100vh - 48px);
+  height: 100vh;
+`;
+
+const Title = styled(Typography)`
+  && {
+    font-family: "Sunrise International", sans-serif;
+  }
 `;
 
 const Layout = ({ children }) => {
@@ -24,14 +30,14 @@ const Layout = ({ children }) => {
   const { showSnackbar } = useSnackbar();
   return (
     <>
-      <AppBar position="static">
+      <AppBar position="fixed">
         <Toolbar variant="dense">
           <IconButton color="inherit" aria-label="Menu" onClick={() => setIsOpen(true)}>
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" color="inherit">
+          <Title variant="h6" color="inherit">
             Sobera
-          </Typography>
+          </Title>
           <IconButton color="inherit" aria-label="Perfil" onClick={() => showSnackbar({ message: 'E AI GALERA', type: 'info'})}>
             <AccountIcon />
           </IconButton>

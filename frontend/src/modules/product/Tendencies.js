@@ -1,8 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import { withFormik } from 'formik';
-import TextField from '@material-ui/core/TextField';
-import Button from '../common/Button.js'
 import image from '../../assets/background-padrao.png'
 import banana from '../../assets/img1.jpg'
 import orange from '../../assets/img2.jpg'
@@ -10,7 +8,6 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import _CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
 import ArrowUpward from '@material-ui/icons/ArrowUpward'
 import ArrowDownward from '@material-ui/icons/ArrowDownward'
 import Paper from '@material-ui/core/Paper';
@@ -22,8 +19,7 @@ const Wrapper = styled.div`
   justify-content : center;
   height : 100%;
   background-image: url(${image});
-  height: 100%;
-  padding: 0 15px;
+  margin: 50px 15px;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -62,12 +58,12 @@ const TendenciesInnerForm = () => {
             Banana
           </Typography>
           <Typography variant="subtitle1" color="textSecondary">
-            <ArrowUpward/>            
+            <ArrowUpward/>
           </Typography>
-        </CardContent> 
+        </CardContent>
       </div>
 
-    </Card>      
+    </Card>
 
     <Card>
       <CardMedia
@@ -82,7 +78,7 @@ const TendenciesInnerForm = () => {
           <Typography variant="subtitle1" color="textSecondary">
             <ArrowDownward/>
           </Typography>
-        </CardContent> 
+        </CardContent>
       </div>
     </Card>
 
@@ -103,9 +99,9 @@ const TendenciesInnerForm = () => {
               Laranja
             </Typography>
             <Typography variant="subtitle1" color="textSecondary">
-              <ArrowUpward/>            
+              <ArrowUpward/>
             </Typography>
-          </CardContent> 
+          </CardContent>
         </div>
       </Card>
 

@@ -40,6 +40,7 @@ const Wrapper = styled.div`
   font-weight : bold;
   font-size : 25px;
   justify-content : center;
+
   background-color : '0xfff'
   > div {
     display: flex;
@@ -116,6 +117,18 @@ const TendenciesInnerForm = () => {
 
       <CardHeader>
 
+
+      <Paper>
+        <Typography variant="h5" component="h3">
+          Essa Semana
+        </Typography>
+      </Paper>
+
+     <Card style={{ borderRadius: 30 }}>
+      <CardMedia
+        image={banana}
+        title="Live from space album cover"
+      />
       <div>
         <CardContentHeader>
           <Typography component="h5" variant="h5">

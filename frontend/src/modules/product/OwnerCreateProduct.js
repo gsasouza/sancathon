@@ -77,12 +77,17 @@ const Wrapper = styled.div`
   height: 100%;
   background-color: #004225;
   background-image: url(${bgImage});
+  img {
+    @media(max-height: 720px) {
+      display: none;
+    }
+  }
 `;
 
 
 const MobileStepper = styled(_MobileStepper)`
   && {
-    background-color: transparent;
+    background-color: #004225;
     > div > div {
       background-color: #ffd800
     }
