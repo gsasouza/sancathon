@@ -15,6 +15,12 @@ const Schema = new mongoose.Schema(
       type: String,
       required: true,      
     },
+    createdby: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: 'User',
+
+    },
     active: {
       type: Boolean,
       default: true,
