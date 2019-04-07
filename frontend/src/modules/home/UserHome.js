@@ -21,6 +21,7 @@ import _Fab from '@material-ui/core/Fab';
 import Layout from '../Layout';
 import backgroundImage from '../../assets/fundo-telas-reduzido-semfundo.png';
 import Button from '../common/Button';
+import { logout } from '../security/security';
 
 const meMock = {
   image: 'https://avatars2.githubusercontent.com/u/8701003?s=400&u=79bddb72021b7bc43618419c48d77a49ec036b2c&v=4',
@@ -79,7 +80,7 @@ const CardActions = styled(_CardActions)`
 `;
 
 const StarIcon = styled(_StarIcon)`
-  color: #dcff42;
+  color: #ffd800;
 `;
 
 const Card = styled(_Card)`
@@ -185,7 +186,11 @@ const UserHome = ({ history }) => {
     },
     {
       label: 'Sair',
-      icon: <ExitToAppIcon/>
+      icon: <ExitToAppIcon/>,
+      onClick: () => {
+        logout();
+        history.push('/login')
+      }
     },
   ];
 

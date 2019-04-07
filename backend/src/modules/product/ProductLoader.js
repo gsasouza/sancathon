@@ -41,7 +41,8 @@ export const clearCache = ({ dataloaders }, id) => {
 };
 
 export const loadProducts = async (context, args) => {
-  const where = args.search ? {name: { $regex: new RegExp(`^${args.search}`, 'ig') } } : {};
+  const isOwner = args.isOwner ? { createdby: context.user.id } : {};
+  const where = args.search ? { name: { $regex: new RegExp(`^${args.search}`, 'ig') }, ...isOwner } : {};
   const users = ProductModel.find(where, { _id: 1 }).sort({ createdAt: -1 });
 
   return connectionFromMongoCursor({

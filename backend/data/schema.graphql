@@ -15,6 +15,7 @@ type ChangePasswordPayload {
 input CreateProductInput {
   name: String!
   quantity: String!
+  createdby: ID!
   price: String!
   clientMutationId: String
 }
@@ -81,6 +82,7 @@ type Product {
   name: String
   quantity: String
   price: String
+  createdby: User
   active: Boolean
 }
 
@@ -107,7 +109,7 @@ type ProductEdge {
 type Query {
   me: User
   product(id: ID!): Product
-  products(after: String, first: Int, before: String, last: Int, search: String): ProductConnection
+  products(after: String, first: Int, before: String, last: Int, search: String, isOwner: Boolean): ProductConnection
   user(id: ID!): User
   users(after: String, first: Int, before: String, last: Int, search: String): UserConnection
 }

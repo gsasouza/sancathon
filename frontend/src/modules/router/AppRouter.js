@@ -63,7 +63,6 @@ const AppRouter = ({ query: { me }}) => (
   </BrowserRouter>
 );
 
-
 const fragment = createFragmentContainer(AppRouter, {
   query: graphql`
       fragment AppRouter_query on Query {
