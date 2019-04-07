@@ -41,7 +41,8 @@ const ButtonWrapper = styled(Column)`
   align-items: center;
 `;
 
-const LoginInnerForm = () => {
+const LoginInnerForm = (props) => {
+  console.log(props);
   return (
     <Wrapper>
       <Image src={logo} alt={'Sobera'}/>
@@ -68,8 +69,8 @@ const LoginInnerForm = () => {
             Entrar
           </Button>
         </ButtonWrapper>
-         
-        
+
+
       </Column>
 
     </Wrapper>

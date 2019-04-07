@@ -10,6 +10,8 @@ import Button from '../common/Button';
 import ScreenTitle from '../common/ScreenTitle';
 import TextField from '../common/TextField';
 
+import ProductAddMutation from './mutation/ProductAddMutation';
+
 const FormWrapper = styled.div`
   display: flex;
   flex-direction: column;
