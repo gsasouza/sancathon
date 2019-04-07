@@ -8,6 +8,7 @@ import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 
 import Button from '../common/Button';
 import ScreenTitle from '../common/ScreenTitle';
+import TextField from '../common/TextField';
 
 const FormWrapper = styled.div`
   display: flex;
@@ -21,12 +22,6 @@ const FormWrapper = styled.div`
   }
 `;
 
-const TextField = styled(_TextField)`
-  fieldset {
-    border-radius: 30px; 
-  }
-
-`;
 
 const steps = [
   {
