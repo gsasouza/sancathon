@@ -10,7 +10,7 @@ export default class User {
     this._id = data._id;
     this.name = data.name;
     this.university = data.university;
-    this.isAdmin = data.isAdmin;
+    this.isOwner = data.isOwner;
     this.email = data.email;
   }
 }

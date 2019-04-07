@@ -18,6 +18,10 @@ export default new GraphQLObjectType({
       type: GraphQLString,
       resolve: user => user.email,
     },
+    isOwner: {
+      type: GraphQLBoolean,
+      resolve: user => user.isOwner,
+    },
     active: {
       type: GraphQLBoolean,
       resolve: user => user.active,
