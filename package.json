@@ -1,0 +1,11 @@
+{
+  "name": "sancathon",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:gsasouza/sancathon.git",
+  "author": "Gabriel Souza <gabrie.ssouza@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "cd backend && npm install && npm run build && npm run start"
+  }
+}

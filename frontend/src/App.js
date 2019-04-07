@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
-import Layout from './modules/Layout';
 import { SnackbarProvider } from './modules/snackbar';
 
-import OwnerProductList from './modules/user/Tendencies.jsx';
+import OwnerProductList from './modules/home/UserHome';
+import AppRouter from './modules/router/AppRouter';
 
 const theme = createMuiTheme({
   palette: {
@@ -26,7 +26,7 @@ class App extends Component {
     return (
       <MuiThemeProvider theme={theme}>
         <SnackbarProvider>
-          <OwnerProductList/>
+          <AppRouter />
         </SnackbarProvider>
       </MuiThemeProvider>
     );

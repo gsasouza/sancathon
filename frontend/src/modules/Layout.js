@@ -6,6 +6,8 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import AccountIcon from '@material-ui/icons/AccountCircle';
 import styled from 'styled-components';
+
+import useSnackbar from './snackbar/useSnackbar';
 import Sidebar from './Sidebar';
 
 const Toolbar = styled(_Toolbar)`
@@ -19,6 +21,7 @@ const Content = styled.div`
 
 const Layout = ({ children }) => {
   const [isOpen, setIsOpen] = React.useState(false);
+  const { showSnackbar } = useSnackbar();
   return (
     <>
       <AppBar position="static">
@@ -29,7 +32,7 @@ const Layout = ({ children }) => {
           <Typography variant="h6" color="inherit">
             Sobera
           </Typography>
-          <IconButton color="inherit" aria-label="Perfil" onClick={() => console.log('Perfil')}>
+          <IconButton color="inherit" aria-label="Perfil" onClick={() => showSnackbar({ message: 'E AI GALERA', type: 'info'})}>
             <AccountIcon />
           </IconButton>
         </Toolbar>
