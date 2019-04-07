@@ -16,7 +16,7 @@ const Toolbar = styled(_Toolbar)`
 `;
 
 const Content = styled.div`
-  height: calc(100vh - 48px);
+  height: 100vh;
 `;
 
 const Layout = ({ children }) => {
@@ -24,7 +24,7 @@ const Layout = ({ children }) => {
   const { showSnackbar } = useSnackbar();
   return (
     <>
-      <AppBar position="static">
+      <AppBar position="fixed">
         <Toolbar variant="dense">
           <IconButton color="inherit" aria-label="Menu" onClick={() => setIsOpen(true)}>
             <MenuIcon />

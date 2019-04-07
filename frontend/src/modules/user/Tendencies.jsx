@@ -22,7 +22,6 @@ const Wrapper = styled.div`
   justify-content : center;
   height : 100%;
   background-image: url(${image});
-  height: 100%;
   padding: 0 15px;
   background-size: cover;
   background-repeat: no-repeat;
@@ -54,7 +53,7 @@ const TendenciesInnerForm = () => {
         </Typography>
       </Paper>
 
-     <Card style={{ border-radius : 30px}}>
+     <Card style={{ borderRadius: 30 }}>
       <CardMedia
         image={banana}
         title="Live from space album cover"
