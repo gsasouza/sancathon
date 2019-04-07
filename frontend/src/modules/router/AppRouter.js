@@ -11,6 +11,7 @@ import OwnerHome from '../home/OwnerHome';
 import OwnerProductList from '../product/OwnerProductList';
 import OwnerCreateProduct from '../product/OwnerCreateProduct';
 import UserProductList from '../product/UserProductList';
+import Tendencies from '../user/Tendencies';
 import { createQueryRenderer } from '../../relay/createQueryRender';
 
 const NotFound = () => (
@@ -58,7 +59,7 @@ const AppRouter = ({ query: { me }}) => (
       <Route
         path={'/product/tendencies'}
         exact={true}
-        render={(props) => chooseScreen(NotFound, OwnerCreateProduct, me, props)}
+        render={(props) => chooseScreen(NotFound, Tendencies, me, props)}
       />
       <Route path="*" component={NotFound}/>
 
