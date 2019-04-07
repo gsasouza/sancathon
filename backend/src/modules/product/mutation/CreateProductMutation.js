@@ -18,19 +18,11 @@ export default mutationWithClientMutationId({
     },
   },
   mutateAndGetPayload: async ({ name, quantity, price }, { user }) => {
-    let product = await Product.findOne({ name: name.toLowerCase() });
 
-    if (product) {
-      return {
-        token: null,
-        error: 'EMAIL_ALREADY_IN_USE',
-      };
-    }
-
-    product = new Product({
+    const product = new Product({
       name,
       quantity,
-      createdby: fromGlobalId(user.id).id,
+      createdby: user._id,
       price,
     });
     await product.save();
