@@ -11,6 +11,7 @@ import Button from '../common/Button';
 const Wrapper = styled.section`
   display: flex;
   flex-direction: column;
+  margin: 0 15px;
 `;
 
 const ExpansionPanel = styled(_ExpansionPanel)`
@@ -89,7 +90,7 @@ const Item = ({ name, price, quantity }) => (
 const OwnerProductList = () => {
   return (
     <Wrapper>
-      <Button variant="contained" color="primary" width={180} onClick={() => console.log('Adicionar Produto')}>
+      <Button style={{ margin: '15px 0'}} variant="contained" color="primary" width={200} onClick={() => console.log('Adicionar Produto')}>
         Adicionar Produto
       </Button>
       {productsMock.edges.map(({ node }, index) => <Item key={index} {...node} />)}

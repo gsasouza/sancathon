@@ -3,7 +3,7 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 import Layout from './modules/Layout';
 import { SnackbarProvider } from './modules/snackbar';
-import Signup from './modules/user/Signup.jsx';
+import OwnerProductList from './modules/product/OwnerProductList';
 
 const theme = createMuiTheme({
   palette: {
@@ -23,7 +23,7 @@ class App extends Component {
       <MuiThemeProvider theme={theme}>
         <SnackbarProvider>
           <Layout>
-            <Signup/>
+            <OwnerProductList/>
           </Layout>
         </SnackbarProvider>
       </MuiThemeProvider>

@@ -14,33 +14,30 @@ const Toolbar = styled(_Toolbar)`
 `;
 
 const Content = styled.div`
-  padding: 15px 10px;
-  height: calc(100vh - 78px);
+  height: calc(100vh - 48px);
 `;
 
 const Layout = ({ children }) => {
   const [isOpen, setIsOpen] = React.useState(false);
   return (
     <>
-      <div>
-        <AppBar position="static">
-          <Toolbar variant="dense">
-            <IconButton color="inherit" aria-label="Menu" onClick={() => setIsOpen(true)}>
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" color="inherit">
-              Sobera
-            </Typography>
-            <IconButton color="inherit" aria-label="Perfil" onClick={() => console.log('Perfil')}>
-              <AccountIcon />
-            </IconButton>
-          </Toolbar>
-        </AppBar>
-        <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} />
-        <Content>
-          {children}
-        </Content>
-      </div>
+      <AppBar position="static">
+        <Toolbar variant="dense">
+          <IconButton color="inherit" aria-label="Menu" onClick={() => setIsOpen(true)}>
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" color="inherit">
+            Sobera
+          </Typography>
+          <IconButton color="inherit" aria-label="Perfil" onClick={() => console.log('Perfil')}>
+            <AccountIcon />
+          </IconButton>
+        </Toolbar>
+      </AppBar>
+      <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} />
+      <Content>
+        {children}
+      </Content>
     </>
   )
 };

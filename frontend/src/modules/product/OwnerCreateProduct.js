@@ -1,39 +1,64 @@
 import * as React from 'react';
-import _Stepper from '@material-ui/core/Stepper';
-import Step from '@material-ui/core/Step';
-import StepLabel from '@material-ui/core/StepLabel';
-import StepContent from '@material-ui/core/StepContent';
+import _MobileStepper from '@material-ui/core/MobileStepper';
 import styled from 'styled-components';
+import { withFormik } from 'formik';
+import _TextField from '@material-ui/core/TextField';
+import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
+import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 
 import Button from '../common/Button';
+import ScreenTitle from '../common/ScreenTitle';
+
+const FormWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 15px;
+  height: 100%;
+  > div {
+    margin: 8px 0;
+  }
+`;
+
+const TextField = styled(_TextField)`
+  fieldset {
+    border-radius: 30px; 
+  }
+
+`;
 
 const steps = [
   {
     label: 'Dados do Produto',
-    content: <div>DADOS</div>
+    content: (
+      <FormWrapper>
+        <TextField variant={'outlined'} fullWidth={true} label={'Nome'}/>
+        <TextField variant={'outlined'} fullWidth={true} label={'Descrição'}/>
+        <TextField variant={'outlined'} fullWidth={true}label={'Tipo'}/>
+      </FormWrapper>
+    )
   },
   {
     label: 'Estoque',
-    content: <div> ESTOQUE</div>
+    content: <FormWrapper> ESTOQUE</FormWrapper>
   },
   {
     label: 'Adicionais',
-    content: <div> ADICIONAIS </div>
+    content: <FormWrapper> ADICIONAIS </FormWrapper>
   }
 ];
 
-const Stepper = styled(_Stepper)`
-  && {
-    background-color: transparent;
-  }
-`;
-
-const ButtonWrapper = styled.div`
-  margin: 0 10px;
-`;
-
-const ButtonsWrapper = styled.div`
+const Wrapper = styled.div`
   display: flex;
+  flex-direction: column;
+  height: 100%;
+`;
+
+const MobileStepper = styled(_MobileStepper)`
+  && {
+    background-color: #bebbb8;
+  }
 `;
 
 const OwnerCreateProduct = () => {
@@ -43,41 +68,44 @@ const OwnerCreateProduct = () => {
 
   const handleBack = () => setActiveStep(prevActiveStep => prevActiveStep - 1);
 
-  const getStepContent = (step) => steps.values()[step];
+  const getStepContent = (step) => steps[step].content;
 
   return (
-    <Stepper activeStep={activeStep} orientation="vertical">
-      {steps.map(({ content, label}, index) => (
-        <Step key={label}>
-          <StepLabel>{label}</StepLabel>
-          <StepContent>
-            { getStepContent(index) }
-            <ButtonsWrapper>
-              <ButtonWrapper>
-                <Button
-                disabled={activeStep === 0}
-                onClick={handleBack}
-                variant="contained"
-                color="secondary"
-              >
-                Voltar
-              </Button>
-              </ButtonWrapper>
-              <ButtonWrapper>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={handleNext}
-                >
-                  {activeStep === steps.length - 1 ? 'Finalizar' : 'Avançar'}
-                </Button>
-              </ButtonWrapper>
-            </ButtonsWrapper>
-          </StepContent>
-        </Step>
-      ))}
-    </Stepper>
+    <Wrapper>
+      <ScreenTitle> Cadastrar Produto </ScreenTitle>
+      { getStepContent(activeStep) }
+
+      <MobileStepper
+        variant="progress"
+        steps={steps.length}
+        activeStep={activeStep}
+        position="static"
+        nextButton={
+          <Button
+            size="small"
+            onClick={handleNext}
+          >
+            {activeStep === steps.length - 1 ? 'Finalizar' : 'Avançar'}
+            <KeyboardArrowRight />
+          </Button>
+        }
+        backButton={
+          <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
+            <KeyboardArrowLeft />
+            Voltar
+          </Button>
+        }
+      />
+    </Wrapper>
   )
+
 };
 
-export default OwnerCreateProduct;
+export default withFormik({
+  mapPropsToValues: () => ({
+    name: '',
+    description: '',
+
+  }),
+  handleSubmit: () => console.log('create'),
+})(OwnerCreateProduct);
