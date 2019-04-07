@@ -28,6 +28,7 @@ type CreateProductPayload {
 input CreateUserInput {
   name: String!
   email: String!
+  isOwner: Boolean!
   password: String!
   clientMutationId: String
 }
@@ -118,6 +119,7 @@ type User {
   _id: String
   name: String
   email: String
+  isOwner: Boolean
   active: Boolean
 }
 

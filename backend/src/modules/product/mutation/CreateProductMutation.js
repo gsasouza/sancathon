@@ -1,11 +1,8 @@
-// @flow
-
 import { GraphQLString, GraphQLNonNull } from 'graphql';
 import { mutationWithClientMutationId } from 'graphql-relay';
 
 import Product from '../ProductModel';
 import ProductType from '../ProductType';
-import { generateToken } from '../../../auth';
 
 export default mutationWithClientMutationId({
   name: 'CreateProduct',
