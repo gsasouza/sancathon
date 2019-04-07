@@ -1,6 +1,5 @@
 import * as  React from 'react';
 import _Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
 import _CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
@@ -8,11 +7,11 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import _ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import Chip from '@material-ui/core/Chip';
 import styled from 'styled-components';
 import Avatar from '@material-ui/core/Avatar';
-import Paper from '@material-ui/core/Paper';
 
+import ScreenTitle from '../common/ScreenTitle';
 import image from '../../assets/1.jpg';
 import Layout from '../Layout';
 import {createFragmentContainer} from 'react-relay';
@@ -22,34 +21,50 @@ import backgroundImage from '../../assets/fundo-telas-reduzido-semfundo.png';
 
 const AvatarWrapper = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: left;
   justify-content : space-around;
-
+  align-items: center;
   > div:first-child  {
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
     border: 4px solid #fff;
   }
+  > div:last-child {
+    display: flex;
+    flex-direction: column;
+  }
   span {
-    font-size: 20px;
+    font-size: 14px;
     font-weight: bold;
-    color: #fff;
+  }
+  svg {
+    color: red;
   }
 `;
 
 const HeartIcon = styled(FavoriteIcon)`
   color: ${props => props.hasLiked ? '#ffd800' : 'rgba(0, 0, 0, 0.54)'};
   transition: color 1s cubic-bezier(.17,.67,.83,.67);
-
+  ${props => props.large && `
+    && {
+      width:50px;
+      height:50px;
+    }`
+  }
 `;
 
-const UserProfile = ({ me, hasLiked }) => {
+const UserProfile = ({ me, hasLiked, name }) => {
   return (
     <AvatarWrapper>
       <Avatar src={`https://randomuser.me/api/portraits/med/men/${Math.round(Math.random() * 65)}.jpg`}/>
-      <HeartIcon hasLiked={hasLiked}/>
-      <span>{me ? me.name : '---' }</span>
+      <div>
+        <Typography component="h1" style={{ fontSize: 22, fontWeight: 'bold' }}>
+          {name}
+        </Typography>
+        <div style={{ display: 'flex'}}>
+          <HeartIcon hasLiked={hasLiked}/>
+          <span>{`Família ${me ? me.name.split(' ')[1] : 'Produtopper'} (${Math.round(Math.random() * 200)} apois)`}</span>
+        </div>
+      </div>
     </AvatarWrapper>
   )
 };
@@ -64,6 +79,7 @@ const Top = styled.section`
   display: flex;
   flex-direction: row;
   margin: 0 15px;
+  justify-content: space-between;
 `;
 
 const Test = styled.section`
@@ -76,6 +92,7 @@ const ShoppingBasketIcon = styled(_ShoppingBasketIcon)`
   && {
     width:50px;
     height:50px;
+    color: #3baf07;
   }
 `;
 
@@ -101,16 +118,15 @@ const HeaderWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  > div > h6 {
+    color: #fff;
+  }
 `;
 
 
 const Tag = ({name}) => {
   return (
-    <Paper>
-      <Typography component="h6">
-        {name}
-      </Typography>
-    </Paper>
+    <Chip label={name}/>
   )
 };
 
@@ -122,16 +138,7 @@ const Item = ({ name, price, description, createdby }) => {
   return (
     <Card>
       <Top>
-      <UserProfile me={createdby} />
-      <CardHeader
-        action={
-          <IconButton>
-            <MoreVertIcon />
-          </IconButton>
-        }
-        title={name}
-        subheader={description}
-      />
+        <UserProfile me={createdby} name={name} />
       </Top>
 
       <CardMedia
@@ -148,11 +155,11 @@ const Item = ({ name, price, description, createdby }) => {
             {`R$ ${price}/kg`}
           </Typography>
         </PriceWrapper>
-        <IconButton aria-label="Gostei" onClick={() => setHasLiked(!hasLiked)} >
+        <IconButton aria-label="Gostei">
+          <HeartIcon large />
         </IconButton>
-        <HeartIcon/>
         <IconButton aria-label="Comprar">
-          <ShoppingBasketIcon/>
+          <ShoppingBasketIcon />
         </IconButton>
 
       </CardActions>
@@ -165,6 +172,7 @@ const UserProductList = ({ query }) => {
   return (
     <Layout>
       <HeaderWrapper>
+        <ScreenTitle t>Comprar Organicos </ScreenTitle>
         <Wrapper>
           {products.edges.map(({ node }, index) => <Item key={index} {...node} />)}
         </Wrapper>

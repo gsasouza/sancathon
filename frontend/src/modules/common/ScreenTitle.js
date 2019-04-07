@@ -6,10 +6,10 @@ const Wrapper = styled.div`
   margin: 10px;
 `;
 
-const ScreenTitle = () => {
+const ScreenTitle = ({ children }) => {
   return (
     <Wrapper>
-      <Typography align={'left'} variant={'h6'}> Cadastrar Produto </Typography>
+      <Typography align={'left'} variant={'h6'}> {children} </Typography>
     </Wrapper>
   )
 };
