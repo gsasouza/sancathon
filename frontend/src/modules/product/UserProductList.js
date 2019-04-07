@@ -91,7 +91,7 @@ const meMock = {
 };
 
 const HeartIcon = styled(FavoriteIcon)`
-  color: ${props => props.hasLiked ? '#ff3d3d' : 'rgba(0, 0, 0, 0.54)'};
+  color: ${props => props.hasLiked ? '#ffd800' : 'rgba(0, 0, 0, 0.54)'};
   transition: color 1s cubic-bezier(.17,.67,.83,.67);
 `;
 
