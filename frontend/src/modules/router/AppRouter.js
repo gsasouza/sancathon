@@ -20,6 +20,7 @@ const NotFound = () => (
 );
 
 const chooseScreen = (UserComponent, OwnerComponent, me, props) => {
+  console.log(me)
   if (!isLoggedIn()) return <Login {...props}/>;
   if (!me) return <Login {...props}/>;
   if (me.isOwner) return <OwnerComponent {...props} />;
@@ -57,7 +58,7 @@ const AppRouter = ({ query: { me }}) => (
       <Route
         path={'/product/tendencies'}
         exact={true}
-        render={(props) => chooseScreen(NotFound, OwnerCreateProduct,  me.isOwner, props)}
+        render={(props) => chooseScreen(NotFound, OwnerCreateProduct, me, props)}
       />
       <Route path="*" component={NotFound}/>
 

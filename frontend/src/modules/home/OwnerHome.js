@@ -149,7 +149,8 @@ const OwnerHome = ({ history, query }) => {
     },
     {
       label: 'Tendências',
-      icon: <ShowChartIcon/>
+      icon: <ShowChartIcon/>,
+      onClick: () => history.push('/product/tendencies')
     },
     {
       label: 'Configurações',
