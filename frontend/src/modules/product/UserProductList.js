@@ -22,7 +22,6 @@ import banana from '../../assets/img1.jpg';
 import orange from '../../assets/img2.jpg';
 import apple from '../../assets/img3.jpeg';
 
-
 const AvatarWrapper = styled.div`
   display: flex;
   justify-content : space-around;
@@ -163,10 +162,9 @@ const Item = ({ name, price, description, createdby }) => {
         <IconButton aria-label="Gostei">
           <HeartIcon large />
         </IconButton>
-        <IconButton aria-label="Comprar">
+        <IconButton aria-label="Comprar" onClick={this.handleOpen}>
           <ShoppingBasketIcon />
         </IconButton>
-
       </CardActions>
     </Card>
   );

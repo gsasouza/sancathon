@@ -35,6 +35,9 @@ const Wrapper = styled.div`
   }
 `;
 
+
+
+
 const CardMedia = styled(_CardMedia)`
   width: 230px;
   height : 115px;
@@ -51,7 +54,7 @@ const TendenciesInnerForm = () => {
         </Typography>
       </Paper>
 
-     <Card>
+     <Card style={{ border-radius : 30px}}>
       <CardMedia
         image={banana}
         title="Live from space album cover"
@@ -62,12 +65,12 @@ const TendenciesInnerForm = () => {
             Banana
           </Typography>
           <Typography variant="subtitle1" color="textSecondary">
-            <ArrowUpward/>            
+            <ArrowUpward/>
           </Typography>
-        </CardContent> 
+        </CardContent>
       </div>
 
-    </Card>      
+    </Card>
 
     <Card>
       <CardMedia
@@ -82,7 +85,7 @@ const TendenciesInnerForm = () => {
           <Typography variant="subtitle1" color="textSecondary">
             <ArrowDownward/>
           </Typography>
-        </CardContent> 
+        </CardContent>
       </div>
     </Card>
 
@@ -103,9 +106,9 @@ const TendenciesInnerForm = () => {
               Laranja
             </Typography>
             <Typography variant="subtitle1" color="textSecondary">
-              <ArrowUpward/>            
+              <ArrowUpward/>
             </Typography>
-          </CardContent> 
+          </CardContent>
         </div>
       </Card>
 
