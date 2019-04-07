@@ -122,11 +122,17 @@ const HeaderWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-repeat: no-repeat;
   > div > h6 {
     color: #fff;
   }
 `;
 
+const Imgs = {
+  Banana: banana,
+  Maça: apple,
+  Laranja: orange,
+};
 
 const Tag = ({name}) => {
   return (
@@ -135,7 +141,6 @@ const Tag = ({name}) => {
 };
 
 const tags = ["Fazer Frito", "Em pedacos", "Adstringente"];
-const imgs = [apple, orange, banana];
 
 const Item = ({ name, price, description, createdby }) => {
   const [hasLiked, setHasLiked] = React.useState();
@@ -147,7 +152,7 @@ const Item = ({ name, price, description, createdby }) => {
       </Top>
 
       <CardMedia
-        image={apple}
+        image={Imgs[name]}
         title={'Produto'}
       />
       <Test>
@@ -177,7 +182,7 @@ const UserProductList = ({ query }) => {
   return (
     <Layout>
       <HeaderWrapper>
-        <ScreenTitle t>Comprar Organicos </ScreenTitle>
+        <ScreenTitle> Comprar Organicos </ScreenTitle>
         <Wrapper>
           {products.edges.map(({ node }, index) => <Item key={index} {...node} />)}
         </Wrapper>

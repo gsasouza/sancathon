@@ -63,7 +63,6 @@ const ButtonSwitch = styled(ButtonMUI)`
 `;
 
 const LoginInnerForm = ({ history, values, handleChange, handleSubmit, setFieldValue }) => {
-  console.log(values);
   return (
     <Wrapper>
       <Image src={logo} alt={'Sobera'}/>
@@ -82,6 +81,7 @@ const LoginInnerForm = ({ history, values, handleChange, handleSubmit, setFieldV
           label="E-mail"
           margin="normal"
           variant="outlined"
+          type={'email'}
           value={values['email']}
           name={'email'}
           onChange={handleChange}
@@ -93,6 +93,7 @@ const LoginInnerForm = ({ history, values, handleChange, handleSubmit, setFieldV
           value={values['password']}
           variant="outlined"
           name={'password'}
+          type={'password'}
           onChange={handleChange}
         />
         <TextField
