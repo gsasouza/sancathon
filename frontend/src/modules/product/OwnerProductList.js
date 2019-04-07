@@ -96,7 +96,12 @@ const OwnerProductList = ({ history, query }) => {
   return (
     <Layout>
       <Wrapper>
+<<<<<<< HEAD
+
+        <Button style={{ margin: '15px 0'}} variant="contained" color="primary" width={'200px'} onClick={() => history.push('/product/add')}>
+=======
         <Button style={{ margin: '15px 0'}} variant="contained" color="primary" width={'200px'} onClick={() => history.push('/product/new')}>
+>>>>>>> 01aa6a2b0b7df4d0a65df19bbd1b77155ed57843
           Adicionar Produto
         </Button>
         {products.edges.map(({ node }) => <Item key={node.id} {...node} />)}
