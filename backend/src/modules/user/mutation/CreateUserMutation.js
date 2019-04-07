@@ -15,11 +15,14 @@ export default mutationWithClientMutationId({
     email: {
       type: new GraphQLNonNull(GraphQLString),
     },
+    usertype: {
+      type: new GraphQLNonNull(GraphQLString),
+    },
     password: {
       type: new GraphQLNonNull(GraphQLString),
     },
   },
-  mutateAndGetPayload: async ({ name, email, password, university }) => {
+  mutateAndGetPayload: async ({ name, email, password, usertype }) => {
     let user = await User.findOne({ email: email.toLowerCase() });
 
     if (user) {
@@ -33,7 +36,7 @@ export default mutationWithClientMutationId({
       name,
       email,
       password,
-      university,
+      usertype,
     });
     await user.save();
 

@@ -12,6 +12,11 @@ const Schema = new mongoose.Schema(
       required: true,
       hidden: true,
     },
+    usertype: {
+      type: String,
+      required: true,
+      hidden: false,
+    },
     email: {
       type: String,
       required: false,

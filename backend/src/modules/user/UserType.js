@@ -18,6 +18,10 @@ export default new GraphQLObjectType({
       type: GraphQLString,
       resolve: user => user.email,
     },
+    usertype: {
+      type: GraphQLString,
+      resolve: user => user.usertype,
+    },
     active: {
       type: GraphQLBoolean,
       resolve: user => user.active,
