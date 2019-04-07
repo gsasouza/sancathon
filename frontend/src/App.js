@@ -3,7 +3,8 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 import Layout from './modules/Layout';
 import { SnackbarProvider } from './modules/snackbar';
-import Tendencies from './modules/user/Tendencies.jsx';
+
+import OwnerProductList from './modules/user/Signup';
 
 const theme = createMuiTheme({
   palette: {
@@ -15,6 +16,9 @@ const theme = createMuiTheme({
       main: '#bebbb8',
     },
   },
+  typography: {
+    fontFamily: ['Open Sans', 'sans serif'].join(',')
+  }
 });
 
 class App extends Component {
@@ -22,9 +26,9 @@ class App extends Component {
     return (
       <MuiThemeProvider theme={theme}>
         <SnackbarProvider>
-          <Layout>
-            <Tendencies/>
-          </Layout>
+          {/*<Layout>*/}
+            <OwnerProductList/>
+          {/*</Layout>*/}
         </SnackbarProvider>
       </MuiThemeProvider>
     );
