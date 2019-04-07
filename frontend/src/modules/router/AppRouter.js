@@ -6,7 +6,8 @@ import graphql from 'babel-plugin-relay/macro';
 import { isLoggedIn } from '../security/security';
 import Login from '../user/Login';
 import SignUp from '../user/Signup';
-import UserDashboard from '../home/UserHome';
+import UserHome from '../home/UserHome';
+import OwnerHome from '../home/OwnerHome';
 import OwnerProductList from '../product/OwnerProductList';
 import OwnerCreateProduct from '../product/OwnerCreateProduct';
 import UserProductList from '../product/UserProductList';
@@ -40,7 +41,7 @@ const AppRouter = ({ query: { me }}) => (
       <Route
         path={'/'}
         exact={true}
-        render={(props) => isLoggedIn() ? <UserDashboard {...props} />: <Login {...props}/>  }
+        render={(props) => chooseScreen(UserHome, OwnerHome,me.isOwner, props) }
       />
       <Route
         path={'/product/list'}
