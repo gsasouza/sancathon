@@ -26,11 +26,6 @@ import {createFragmentContainer} from 'react-relay';
 import graphql from 'babel-plugin-relay/macro';
 import {createQueryRenderer} from '../../relay/createQueryRender';
 
-const meMock = {
-  image: 'https://avatars2.githubusercontent.com/u/8701003?s=400&u=79bddb72021b7bc43618419c48d77a49ec036b2c&v=4',
-  name: 'Gabriel Souza'
-};
-
 const AvatarWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -125,7 +120,7 @@ const HeartIcon = styled(FavoriteIcon)`
 
 const Wrapper = styled.div`
   background-image: url(${backgroundImage});  
-  padding: 10px 0;
+  margin: 48px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -177,7 +172,7 @@ const UserHome = ({ history, query }) => {
 
   const actions = [
     {
-      label: 'Compras',
+      label: 'Comprar',
       icon: <ShoppingBasketIcon />,
       onClick: () => history.push('/product/list')
     },

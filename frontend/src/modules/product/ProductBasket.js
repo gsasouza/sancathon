@@ -75,7 +75,6 @@ const UserProfile = ({ me, hasLiked, name }) => {
 const Wrapper = styled.section`
   display: flex;
   flex-direction: column;
-  margin: 0 15px;
   height: 100%;
 `;
 
@@ -124,7 +123,7 @@ const PriceWrapper = styled(CardContent)`
 
 const HeaderWrapper = styled.div`
   background-image: url(${backgroundImage});  
-  padding: 10px 0;
+  margin: 48px 0;
   display: flex;
   flex-direction: column;
   align-items: center;

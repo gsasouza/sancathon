@@ -15,7 +15,7 @@ import {createQueryRenderer} from '../../relay/createQueryRender';
 const Wrapper = styled.section`
   display: flex;
   flex-direction: column;
-  margin: 0 15px;
+  margin: 48px 15px;
 `;
 
 const ExpansionPanel = styled(_ExpansionPanel)`
@@ -31,51 +31,6 @@ const ExpansionPanel = styled(_ExpansionPanel)`
     }
   }
 `;
-
-const productsMock = {
-  edges: [
-    {
-      cursor: 1,
-      node: {
-        name: 'Batata',
-        quantity: 10,
-        price: '2,00',
-      }
-    },
-    {
-      cursor: 1,
-      node: {
-        name: 'Tomate',
-        quantity: 15,
-        price: '3,00',
-      }
-    },
-    {
-      cursor: 1,
-      node: {
-        name: 'Cebola',
-        quantity: 11,
-        price: '1,00',
-      }
-    },
-    {
-      cursor: 1,
-      node: {
-        name: 'Alface',
-        quantity: 14,
-        price: '1,40',
-      }
-    },
-    {
-      cursor: 1,
-      node: {
-        name: 'Laranja',
-        quantity: 25,
-        price: '3,50',
-      }
-    },
-  ]
-};
 
 const Item = ({ name, price, quantity }) => (
   <ExpansionPanel>

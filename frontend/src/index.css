@@ -10,3 +10,11 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+@font-face {
+  font-family: 'Sunrise International';
+  font-style: normal;
+  font-weight: 400;
+  src:
+  url('./assets/Sunrise_International.otf') format('woff2') /* Super Modern Browsers */ * Legacy iOS *!*/
+}

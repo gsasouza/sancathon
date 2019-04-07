@@ -19,7 +19,7 @@ const Wrapper = styled.div`
   justify-content : center;
   height : 100%;
   background-image: url(${image});
-  padding: 0 15px;
+  margin: 50px 15px;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
