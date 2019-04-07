@@ -1,9 +1,9 @@
-
 import { Environment, Network, RecordSource, Store } from 'relay-runtime';
-import { GRAPHQL_URL } from '../config';
-import { getAccessToken } from '../security/security';
+import { getAccessToken } from '../modules/security/security';
 
-const fetchQuery = async (operation, variables, cacheConfig, uploadables) => {
+const GRAPHQL_URL = '';
+
+const fetchQuery = async (operation, variables) => {
   const response = await fetch(GRAPHQL_URL, {
     method: 'POST',
     headers: {
