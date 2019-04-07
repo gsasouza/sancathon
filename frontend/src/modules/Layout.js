@@ -20,7 +20,9 @@ const Content = styled.div`
 `;
 
 const Title = styled(Typography)`
-  font-family: "Sunrise International", sans-serif;
+  && {
+    font-family: "Sunrise International", sans-serif;
+  }
 `;
 
 const Layout = ({ children }) => {

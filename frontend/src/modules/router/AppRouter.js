@@ -38,6 +38,7 @@ const AppRouter = ({ query: { me }}) => (
         render={(props) => <SignUp {...props} /> }
       />
       <Route
+        key={me.isOwner}
         path={'/'}
         exact={true}
         render={(props) => chooseScreen(UserHome, OwnerHome, me, props) }

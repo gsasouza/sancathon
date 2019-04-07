@@ -16,5 +16,6 @@ code {
   font-style: normal;
   font-weight: 400;
   src:
-  url('./assets/Sunrise_International.otf') format('woff2') /* Super Modern Browsers */ * Legacy iOS *!*/
+    local('Sunrise International'),
+    url('./assets/Sunrise_International.otf') format('otf');
 }

@@ -101,7 +101,6 @@ export default withSnackbar(
       const onCompleted = ({ LoginUser: { token, error } }) => {
         if (error) return props.showSnackbar({ type: 'error', message: 'Email ou senha inválida' });
         login(token);
-        console.log('here')
         setSubmitting(false);
         props.history.push('/');
       };
